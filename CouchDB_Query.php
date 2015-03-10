@@ -30,11 +30,20 @@ $GLOBALS['wgResourceModules']['ext.CouchDB_Query'] = array(
 );
 
 
+$GLOBALS['wgCouchDB_Query'] = array();
+# Server params
+$GLOBALS['wgCouchDB_Query']["params"] = array();
+
+# Server queries (no mater kind)
+$GLOBALS['wgCouchDB_Query']["queries"]["text"] = "/_fti/local/Databasename/_design/luceneindex/by_text?q=";
+
+
 /**
  * @param $parser Parser
  * @return bool
  */
 function wfRegisterCouchDB_Query( $parser ) {
+	// We handle input, output
 	$parser->setFunctionHook( 'CouchDB_Query', 'CouchDB_Query::process_CouchDB_Query', SFH_OBJECT_ARGS );
 	return true;
 }
