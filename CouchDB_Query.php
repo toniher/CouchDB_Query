@@ -32,7 +32,14 @@ $GLOBALS['wgResourceModules']['ext.CouchDB_Query'] = array(
 
 $GLOBALS['wgCouchDB_Query'] = array();
 # Server params
-$GLOBALS['wgCouchDB_Query']["params"] = array();
+$GLOBALS['wgCouchDB_Query']["params"] = array(
+	"db" => array()
+);
+$GLOBALS['wgCouchDB_Query']["params"]["db"]["username"] = "username";
+$GLOBALS['wgCouchDB_Query']["params"]["db"]["password"] = "password";
+$GLOBALS['wgCouchDB_Query']["params"]["db"]["host"] = "password";
+$GLOBALS['wgCouchDB_Query']["params"]["db"]["port"] = 80;
+$GLOBALS['wgCouchDB_Query']["params"]["db"]["db"] = ""; # Could be another DB
 
 # Server queries (no mater kind)
 $GLOBALS['wgCouchDB_Query']["queries"]["text"] = "/_fti/local/Databasename/_design/luceneindex/by_text?q=";
