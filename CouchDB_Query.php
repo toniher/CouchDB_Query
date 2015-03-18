@@ -15,6 +15,10 @@ $GLOBALS['wgExtensionCredits']['parserhook'][] = array(
 );
 
 $GLOBALS['wgAutoloadClasses']['CouchDB_Query'] = __DIR__.'/CouchDB_Query_body.php';
+$GLOBALS['wgAutoloadClasses']['CouchDB_Lucene'] = __DIR__.'/includes/CouchDB_Lucene.php';
+$GLOBALS['wgAutoloadClasses']['CouchDB_Index'] = __DIR__.'/includes/CouchDB_Index.php';
+
+
 $GLOBALS['wgMessagesDirs']['CouchDB_Query'] = __DIR__ . '/i18n';
 $GLOBALS['wgExtensionMessagesFiles']['CouchDB_Query'] = __DIR__ . '/CouchDB_Query.i18n.php';
 $GLOBALS['wgExtensionMessagesFiles']['CouchDB_QueryMagic'] = __DIR__ . '/CouchDB_Query.i18n.magic.php';
