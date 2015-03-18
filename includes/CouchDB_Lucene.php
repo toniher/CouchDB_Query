@@ -1,7 +1,7 @@
 <?php
 class CouchDB_Lucene {
 
-	public function processIndex( $params ) {
+	public static function processIndex( $params ) {
 
 		$outcome = array();
 
@@ -48,7 +48,19 @@ class CouchDB_Lucene {
 									$host =  $couchdb_params["host"];
 								}
 
-								$url = $protocol."://".$host.$portstr.$urlquery;
+								$lucene_params = array( "q", "limit", "skip" );
+
+								$add_params = array();
+
+								foreach ( $lucene_params as $lp ) {
+									if ( array_key_exists( $lp, $params ) ) {
+										if ( ! empty( $params[$lp]) ) {
+											array_push( $add_params, $lp."=".$params[$lp] );
+										}
+									}
+								}
+
+								$url = $protocol."://".$host.$portstr.$urlquery."?".join( $add_params, "&" );
 
 								$json = file_get_contents( $url );
 								$outcome = json_decode($json);

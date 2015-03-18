@@ -64,6 +64,6 @@ $wgAPIModules['couchdb-lucene-query'] = 'ApiCouchDB_Query_Lucene';
  */
 function wfRegisterCouchDB_Query( $parser ) {
 	// We handle input, output
-	$parser->setFunctionHook( 'CouchDB_Query', 'CouchDB_Query::process_CouchDB_Query', SFH_OBJECT_ARGS );
+	// $parser->setFunctionHook( 'CouchDB_Query', 'CouchDB_Query::process_CouchDB_Query', SFH_OBJECT_ARGS );
 	return true;
 }
