@@ -44,6 +44,7 @@ $GLOBALS['wgCouchDB_Query']["params"]["db"]["db"] = ""; # Could be another DB
 
 # Server queries (no mater kind)
 $GLOBALS['wgCouchDB_Query']["queries"]["db"]["text"] = "/_fti/local/db/_design/luceneindex/by_text";
+$GLOBALS['wgCouchDB_Query']["queries"]["db"]["coords"] = "/db/_design/search/_view/coords";
 
 # API Stuff
 $wgAutoloadClasses['ApiCouchDB_Query'] = dirname( __FILE__ ). '/CouchDB_Query.api.couchdb.php';
@@ -51,7 +52,6 @@ $wgAutoloadClasses['ApiCouchDB_Query_Lucene'] = dirname( __FILE__ ). '/CouchDB_Q
 // api modules
 $wgAPIModules['couchdb-query'] = 'ApiCouchDB_Query';
 $wgAPIModules['couchdb-lucene-query'] = 'ApiCouchDB_Query_Lucene';
-
 
 
 /**
