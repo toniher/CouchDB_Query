@@ -48,7 +48,7 @@ class CouchDB_Index {
 									$host =  $couchdb_params["host"];
 								}
 
-								$url = $protocol."://".$host.$portstr.$urlquery;
+								$url = $protocol."://".$auth.$host.$portstr.$urlquery;
 
 								$json = file_get_contents( $url );
 								$outcome = json_decode($json);
