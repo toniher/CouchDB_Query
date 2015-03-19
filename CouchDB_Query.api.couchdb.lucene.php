@@ -7,7 +7,6 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 
 		$outcome = CouchDB_Lucene::processIndex( $params );
 		// Below would be JSON
-		// $this->getResult()->addValue( null, $this->getModuleName(), array ( 'status' => "OK", 'msg' => trim( $outtext ) ) );
 	
 		$count = $outcome->total_rows;
 		$rows = array();
@@ -42,7 +41,7 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 			$results[] = $row;
 		}
 
-		$result->setIndexedTagName( $results, 'result' );	
+		$result->setIndexedTagName( $results, 'result' );
 		$result->addValue( $this->getModuleName(), "results", $results );
 	
 		return true;

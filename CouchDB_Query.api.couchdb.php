@@ -7,8 +7,37 @@ class ApiCouchDB_Query extends ApiBase {
 
 		$outcome = CouchDB_Index::processIndex( $params );
 		// Below would be JSON
-		// $this->getResult()->addValue( null, $this->getModuleName(), array ( 'status' => "OK", 'msg' => trim( $outtext ) ) );
 
+		$count = $outcome->total_rows;
+		$rows = array();
+		foreach ( $outcome->rows as $row ) {
+			//var_dump( $row );
+			$rowid = $row->_id;
+			
+			// We assume here that ID is linked
+
+			$newrow = array();
+			$newrow["id"] = $rowid;
+			$newrow["pagename"] = $row->pagename;
+
+			array_push( $rows, $newrow );
+
+		}
+
+
+		$result = $this->getResult();
+		$result->addValue( null, $this->getModuleName(), array ( 'status' => "OK", 'count' => $count ) );
+
+		$results = array();
+		foreach ( $rows as $row ) {
+			
+			$result->setIndexedTagName( $row, 'result' );
+			$results[] = $row;
+		}
+
+		$result->setIndexedTagName( $results, 'result' );
+		$result->addValue( $this->getModuleName(), "results", $results );
+	
 		return true;
 
 	}
