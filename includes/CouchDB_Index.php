@@ -69,7 +69,7 @@ class CouchDB_Index {
 								$outcome = json_decode($json);
 								$outcome_reduce = json_decode($json_reduce);
 
-								$outcome["reduce"] = $outcome_reduce;
+								$outcome->reduce = $outcome_reduce;
 							}
 						}
 					}
