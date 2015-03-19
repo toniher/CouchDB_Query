@@ -48,7 +48,19 @@ class CouchDB_Index {
 									$host =  $couchdb_params["host"];
 								}
 
-								$url = $protocol."://".$auth.$host.$portstr.$urlquery;
+								$extra_params = array( "key", "keys", "startkey", "endkey", "limit", "skip" );
+
+								$add_params = array();
+
+								foreach ( $extra_params as $lp ) {
+									if ( array_key_exists( $lp, $params ) ) {
+										if ( ! empty( $params[$lp]) ) {
+											array_push( $add_params, $lp."=".$params[$lp] );
+										}
+									}
+								}
+
+								$url = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" );
 
 								$json = file_get_contents( $url );
 								$outcome = json_decode($json);
