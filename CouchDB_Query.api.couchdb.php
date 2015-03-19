@@ -9,6 +9,21 @@ class ApiCouchDB_Query extends ApiBase {
 		// Below would be JSON
 
 		$count = $outcome->total_rows;
+
+		if ( array_key_exists( "key", $params ) ) {
+			if ( $outcome->reduce ) {
+				if ( $outcome->reduce->rows ) {
+					if ( sizeof( $outcome->reduce->rows ) > 0 ) {
+						foreach ( $outcome->reduce->rows as $group ) {
+							if ( $group->value ) {
+								$count = $group->value;
+							}
+						}
+					}
+				}
+			}
+		}
+
 		$rows = array();
 		foreach ( $outcome->rows as $row ) {
 			//var_dump( $row );
