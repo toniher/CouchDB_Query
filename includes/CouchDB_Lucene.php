@@ -61,7 +61,7 @@ class CouchDB_Lucene {
 								}
 
 								$url = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&reduce=false";
-								$url_reduce = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&group=true&reduce=false";
+								$url_reduce = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&group=true";
 
 								$json = file_get_contents( $url );
 								$json_reduce = file_get_contents( $url_reduce );
