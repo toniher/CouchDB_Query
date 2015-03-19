@@ -1,7 +1,7 @@
 <?php
 class CouchDB_Index {
 
-	public function processIndex( $params ) {
+	public static function processIndex( $params ) {
 
 		$outcome = array();
 

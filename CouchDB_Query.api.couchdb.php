@@ -12,13 +12,22 @@ class ApiCouchDB_Query extends ApiBase {
 		$rows = array();
 		foreach ( $outcome->rows as $row ) {
 			//var_dump( $row );
-			$rowid = $row->_id;
+			$rowid = $row->id;
 			
 			// We assume here that ID is linked
 
 			$newrow = array();
 			$newrow["id"] = $rowid;
-			$newrow["pagename"] = $row->pagename;
+			if ( $row->value->pagename ) {
+				$newrow["pagename"] = $row->value->pagename;
+			} else {
+				$page = WikiPage::newFromId( $rowid );
+				if ( $page ) {
+					$title = $page->getTitle();
+					$fullpagename = $title->getFullText();
+					$newrow["pagename"] = $fullpagename;
+				}
+			}
 
 			array_push( $rows, $newrow );
 
