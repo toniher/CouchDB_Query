@@ -60,11 +60,16 @@ class CouchDB_Index {
 									}
 								}
 
-								$url = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" );
+								$url = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&reduce=false";
+								$url_reduce = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&group=true";
 
 								$json = file_get_contents( $url );
-								$outcome = json_decode($json);
+								$json_reduce = file_get_contents( $url_reduce );
 
+								$outcome = json_decode($json);
+								$outcome_reduce = json_decode($json_reduce);
+
+								$outcome["reduce"] = $outcome_reduce;
 							}
 						}
 					}
