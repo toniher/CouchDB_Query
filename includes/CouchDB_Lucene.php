@@ -60,10 +60,16 @@ class CouchDB_Lucene {
 									}
 								}
 
-								$url = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" );
+								$url = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&reduce=false";
+								$url_reduce = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&group=true&reduce=false";
 
 								$json = file_get_contents( $url );
+								$json_reduce = file_get_contents( $url_reduce );
+
 								$outcome = json_decode($json);
+								$outcome_reduce = json_decode($json_reduce);
+
+								$outcome["reduce"] = $outcome_reduce;
 
 							}
 						}
