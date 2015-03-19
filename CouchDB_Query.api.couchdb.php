@@ -15,7 +15,8 @@ class ApiCouchDB_Query extends ApiBase {
 				if ( $outcome->reduce->rows ) {
 					if ( sizeof( $outcome->reduce->rows ) > 0 ) {
 						foreach ( $outcome->reduce->rows as $group ) {
-							if ( $params["key"] == $group->key ) {
+							// Trimming because string
+							if ( trim( $params["key"], '"' ) == $group->key ) {
 								if ( $group->value ) {
 									$count = $group->value;
 								}
