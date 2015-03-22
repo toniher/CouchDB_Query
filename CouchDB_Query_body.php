@@ -20,6 +20,7 @@ class CouchDB_Query {
                 $type = "";
                 $index = "";
                 $query = "";
+                $class = "wikitable sortable";
                 
                 // TODO: Pending parsing args?
                 
@@ -41,11 +42,14 @@ class CouchDB_Query {
                 if ( key_exists( "query", $args ) ) {
                     $query = $args["query"];
                 }
+                if ( key_exists( "class", $args ) ) {
+                    $class = $args["class"];
+                }
                 
 		$out = $parser->getOutput();
 		$out->addModules( 'ext.CouchDB_Query' );
 
-		$returnhtml = "<div class='couchdb-query-table' data-limit='$limit' data-header='$header' data-smw='$smw' data-query='$query' data-index='$index' data-type='$type' data-skip=0 ></div>";
+		$returnhtml = "<div class='couchdb-query-table' data-class='$class' data-limit='$limit' data-header='$header' data-smw='$smw' data-query='$query' data-index='$index' data-type='$type' data-skip=0 ></div>";
 
 		return array( $returnhtml, 'noparse' => true, 'isHTML' => true );
 
