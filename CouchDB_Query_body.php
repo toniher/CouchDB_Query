@@ -49,7 +49,7 @@ class CouchDB_Query {
 		$out = $parser->getOutput();
 		$out->addModules( 'ext.CouchDB_Query' );
 
-		$returnhtml = "<div class='couchdb-query-table' data-class='$class' data-limit='$limit' data-header='$header' data-smw='$smw' data-query='$query' data-index='$index' data-type='$type' data-skip=0 ></div>";
+		$returnhtml = "<div class='couchdb-query-table' data-total=0 data-class='$class' data-limit='$limit' data-header='$header' data-smw='$smw' data-query='$query' data-index='$index' data-type='$type' data-skip=0 ></div>";
 
 		return array( $returnhtml, 'noparse' => true, 'isHTML' => true );
 
