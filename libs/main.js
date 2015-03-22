@@ -8,3 +8,4 @@
 /** Assume tolerable permissions JS - PHP **/
 
 
+// For each .couchdb-query-table, retrieve all data attribs, generate table rows, etc.
