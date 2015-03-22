@@ -11,14 +11,41 @@ class CouchDB_Query {
 
 	public static function process_CouchDB_Query_table( $parser, $frame, $args ) {
 
-		// Load JS with instructions
-
 		// Get data from parser args and to data
-
+                // Defaults
+                
+                $limit =  "25";
+                $header = "Page name";
+                $smw = "*";
+                $type = "";
+                $index = "";
+                $query = "";
+                
+                // TODO: Pending parsing args?
+                
+                if ( key_exists( "limit", $args ) ) {
+                    $limit = $args["limit"];
+                }
+                if ( key_exists( "header", $args ) ) {
+                    $header = $args["header"];
+                }
+                if ( key_exists( "smw", $args ) ) {
+                    $smw = $args["smw"];
+                }
+                if ( key_exists( "type", $args ) ) {
+                    $type = $args["type"];
+                }
+                if ( key_exists( "index", $args ) ) {
+                    $index = $args["index"];
+                }
+                if ( key_exists( "query", $args ) ) {
+                    $query = $args["query"];
+                }
+                
 		$out = $parser->getOutput();
 		$out->addModules( 'ext.CouchDB_Query' );
 
-		$returnhtml = "<div class='couchdb-query-table' data-limit='' data-header='' data-smw='' data-query='' data-type=''></div>";
+		$returnhtml = "<div class='couchdb-query-table' data-limit='$limit' data-header='$header' data-smw='$smw' data-query='$query' data-index='$index' data-type='$type' data-skip=0 ></div>";
 
 		return array( $returnhtml, 'noparse' => true, 'isHTML' => true );
 
