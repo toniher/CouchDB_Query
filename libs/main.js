@@ -58,7 +58,7 @@ $(document).ready(function(){
 			var smwe = smw.split(",");
 			var fields = [];
 			for ( var s = 0; s < smwe.length; s = s + 1 ) {
-				fields.push( smwe[i].trim() );
+				fields.push( smwe[s].trim() );
 			}
                         
 			var posting = $.get( wgScriptPath + "/api.php", params );
@@ -168,10 +168,18 @@ function generateRowTable( result, fields, tag ){
 
 
 function generateSMWTable( tables, fields ){
+	
+	var fieldsSMW = [];
+	
+	for ( var i = 0; i < fields.length; i = i + 1 ) {
+		if ( fields[i] !== "*" || fields[i] !== "*score" ) {
+			fieldsSMW.push( fields[i] );
+		}
+	}
 
     $(tables).each( function( i ) {
 
-        $(this).children("tbody tr").each( function( r ) {
+        $(this).find("tbody > tr").each( function( r ) {
 
             //console.log( this );
             var pagename = $(this).children("td").filter("[data-prop='*']").first().text();
@@ -183,14 +191,19 @@ function generateSMWTable( tables, fields ){
                 var params = {};
                 params.action = "askargs";
                 params.conditions = pagename;
-                params.printouts = fields.join("|");
+                params.printouts = fieldsSMW.join("|");
                 params.format = "json"; // Let's put JSON
                 
                 var posting = $.get( wgScriptPath + "/api.php", params );
-                posting.done(function( data ) {
-					console.log( data ); // TODO: Process data
+                posting.done(function( out ) {
+					if ( out && out.hasOwnProperty("results") ) {
+						if ( out["results"].hasOwnProperty( pagename ) ) {
+							console.log();
+						}
+					}
+
                 })
-                .fail( function( data ) {
+                .fail( function( out ) {
                     console.log("Error!");
                 });
             }
