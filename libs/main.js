@@ -54,20 +54,27 @@ $(document).ready(function(){
 			params.action = type;
 			params.format = "json";
 			
+                        
+			var smwe = smw.split(",");
+			var fields = [];
+			for ( var s = 0; s < smwe.length; s = s + 1 ) {
+				fields.push( smwe[i].trim() );
+			}
+                        
 			var posting = $.get( wgScriptPath + "/api.php", params );
 			posting.done(function( data ) {
-				if ( data[type].status === "OK" ) {
-					if ( data[type].count ) {
-						$(div).data('total', data[type].count);
-						if ( data[type].results.length > 0 ) {
-							var table = generateResultsTable( data[type].results, tableclass, header, smw );
-							$(div).append( table );
-							generateSMWTable( $(div).children("table"), smw );
-							$(div).children("table").tablesorter(); //Let's make table sortable
-						}
-					}
+                            if ( data[type].status === "OK" ) {
+                                if ( data[type].count ) {
+                                    $(div).data('total', data[type].count);
+                                    if ( data[type].results.length > 0 ) {
+                                        var table = generateResultsTable( data[type].results, tableclass, header, fields );
+                                        $(div).append( table );
+                                        generateSMWTable( $(div).children("table"), fields );
+                                        $(div).children("table").tablesorter(); //Let's make table sortable
+                                    }
+                                }
 
-				}
+                            }
 			})
 			.fail( function( data ) {
 				console.log("Error!");
@@ -84,121 +91,114 @@ $(document).ready(function(){
 // Next, previous, detecting data-total and data-limit, etc.
 
 $( ".couchdb-query-table" ).on( "click", ".next", function() {
-	console.log( "Next" );
+    console.log( "Next" );
 });
 
 $( ".couchdb-query-table" ).on( "click", ".prev", function() {
-	console.log( "Previous" );
+    console.log( "Previous" );
 });
 
 
-function generateResultsTable( results, tableclass, header, smw ) {
+function generateResultsTable( results, tableclass, header, fields ) {
 
-	var table = "<table class='" + tableclass + "'>";
-	table = table + "<thead><tr>";
+    var table = "<table class='" + tableclass + "'>";
+    table = table + "<thead><tr>";
 
-	var headerstr = generateArrayTable( header, "th", " class=\"headerSort\" title=\"Sort ascending\"" );
-	table = table + headerstr;
+    var headerstr = generateArrayTable( header, "th", " class=\"headerSort\" title=\"Sort ascending\"" );
+    table = table + headerstr;
 
-	table = table + "</tr></thead>";
-	table = table + "<tbody>";
+    table = table + "</tr></thead>";
+    table = table + "<tbody>";
 
-	for ( var r = 0; r < results.length; r = r + 1 ) {
-		var rowstr = generateRowTable( results[r], smw, "td" );
+    for ( var r = 0; r < results.length; r = r + 1 ) {
+		var rowstr = generateRowTable( results[r], fields, "td" );
 		table = table + "<tr>" + rowstr + "</tr>";
-	}
+    }
 
-	table = table + "</tbody>";
-	table = table + "</table>";
+    table = table + "</tbody>";
+    table = table + "</table>";
 
-	return table;
+    return table;
 
 }
 
 function generateArrayTable( arraystr, tag, extra ){
-	var str = "";
-	var array = arraystr.split(",");
-	extra = typeof extra !== 'undefined' ? extra : '';
+    var str = "";
+    var array = arraystr.split(",");
+    extra = typeof extra !== 'undefined' ? extra : '';
 
-	for ( var i = 0; i < array.length; i = i + 1 ) {
-		str = str + "<" + tag + extra + ">" + array[i] + "</" + tag + ">\n";
-	}
-	return str;
+    for ( var i = 0; i < array.length; i = i + 1 ) {
+            str = str + "<" + tag + extra + ">" + array[i] + "</" + tag + ">\n";
+    }
+    return str;
 }
 
-function generateRowTable( result, smw, tag ){
-	var str = "";
+function generateRowTable( result, fields, tag ){
+    var str = "";
 
-	var smwe = smw.split(",");
-	for ( var i = 0; i < smwe.length; i = i + 1 ) {
-		var field = smwe[i].trim();
+    for ( var i = 0; i < fields.length; i = i + 1 ) {
+        var field = fields[i];
 
-		var prop = "";
-		var pagename = null;
+        var prop = "";
+        var pagename = null;
 
-		// Check reference part - OK for now
-		if ( field === '*' ) {
-			if ( result.hasOwnProperty("pagename") ) {
-				fieldTxt = result["pagename"];
-				pagename = fieldTxt;
-			} else {
-				fieldTxt = "";
-			}
-		} else if ( field === '*score' ) {
-			if ( result.hasOwnProperty("score") ) {
-				fieldTxt = result["score"];
-			} else {
-				fieldTxt = "";
-			}
-		} else {
-			if ( pagename ) {
-				// SMW query here
-				
-			} else {
-				fieldTxt = "";
-			}
-		}
-		prop = " data-prop='"+field+"' ";
-		str = str + "<" + tag + prop + ">" + fieldTxt + "</" + tag + ">\n";
-	}
-	return str;
+        // Check reference part - OK for now
+        if ( field === '*' ) {
+            if ( result.hasOwnProperty("pagename") ) {
+                fieldTxt = result["pagename"];
+                pagename = fieldTxt;
+            } else {
+                fieldTxt = "";
+            }
+        } else if ( field === '*score' ) {
+            if ( result.hasOwnProperty("score") ) {
+                fieldTxt = result["score"];
+            } else {
+                fieldTxt = "";
+            }
+        } else {
+
+            fieldTxt = "";
+        }
+        prop = " data-prop='"+field+"' ";
+        str = str + "<" + tag + prop + ">" + fieldTxt + "</" + tag + ">\n";
+    }
+    return str;
 }
 
 
-function generateSMWTable( tables, smw ){
+function generateSMWTable( tables, fields ){
 
-	$(tables).each( function( i ) {
+    $(tables).each( function( i ) {
 
-		$(this).children("tbody tr").each( function( r ) {
+        $(this).children("tbody tr").each( function( r ) {
 
-			//console.log( this );
-			var pagename = $(this).children("td").filter("[data-prop='*']").first().text();
-			// Generate ask query from this
-			console.log( pagename );
+            //console.log( this );
+            var pagename = $(this).children("td").filter("[data-prop='*']").first().text();
+            // Generate ask query from this
+            console.log( pagename );
 
-			if ( pagename ) {
-				var smwe = smw.split(",");
-				var query = "";
-				for ( var i = 0; i < smwe.length; i = i + 1 ) {
-					var field = smwe[i].trim();
-					
-				}
+            if ( pagename ) {
 
-				var params = {};
-				var posting = $.get( wgScriptPath + "/api.php", params );
-				posting.done(function( data ) {
+                var params = {};
+                params.action = "askargs";
+                params.conditions = pagename;
+                params.printouts = fields.join("|");
+                params.format = "json"; // Let's put JSON
+                
+                var posting = $.get( wgScriptPath + "/api.php", params );
+                posting.done(function( data ) {
+					console.log( data ); // TODO: Process data
+                })
+                .fail( function( data ) {
+                    console.log("Error!");
+                });
+            }
 
-				})
-				.fail( function( data ) {
-					console.log("Error!");
-				});
-			}
+        });
 
-		});
+    });
 
-	});
-
-	console.log( smw );
 }
 
 
