@@ -201,7 +201,7 @@ function generateSMWTable( tables, fields ){
 						if ( out["query"].hasOwnProperty("results") ) {
 							if ( out["query"]["results"].hasOwnProperty( pagename ) ) {
 								if ( out["query"]["results"][pagename].hasOwnProperty("printouts") ) {
-									var printouts = out["query"]["results"][pagename].hasOwnProperty("printouts");
+									var printouts = out["query"]["results"][pagename]["printouts"];
 									for ( var prop in printouts ){
 										if ( printouts.hasOwnProperty( prop ) ) {
 											console.log( printouts[prop][0] );
