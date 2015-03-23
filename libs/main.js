@@ -182,7 +182,8 @@ function generateSMWTable( tables, fields ){
         $(this).find("tbody > tr").each( function( r ) {
 
             //console.log( this );
-            var pagename = $(this).children("td").filter("[data-prop='*']").first().text();
+			var row = this;
+            var pagename = $(row).children("td").filter("[data-prop='*']").first().text();
             // Generate ask query from this
             console.log( pagename );
 
@@ -198,7 +199,14 @@ function generateSMWTable( tables, fields ){
                 posting.done(function( out ) {
 					if ( out && out.hasOwnProperty("results") ) {
 						if ( out["results"].hasOwnProperty( pagename ) ) {
-							console.log();
+							if ( out["results"][pagename].hasOwnProperty("printouts") ) {
+								var printouts = out["results"][pagename].hasOwnProperty("printouts");
+								for ( var prop in printouts ){
+									if ( printouts.hasOwnProperty( prop ) ) {
+										console.log( printouts[prop][0] );
+									}
+								}
+							}
 						}
 					}
 
