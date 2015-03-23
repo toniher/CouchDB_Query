@@ -13,12 +13,14 @@ $(document).ready(function(){
 		var index = $(div).data('index');
 		var type = $(div).data('type');
 		var skip = $(div).data('skip');
+		var db = $(div).data('db');
 
 		// Stricty necessary
-		if ( type !== "" && index !== "" ) {
+		if ( type !== "" && index !== "" && db !== "" ) {
 	
 			var params = {};
 			params["index"] = index;
+			params["db"] = db;
 
 			if ( limit !== "" ) {
 				params["limit"] = limit;
