@@ -29,6 +29,9 @@ $GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'wfRegisterCouchDB_Query';
 $GLOBALS['wgResourceModules']['ext.CouchDB_Query'] = array(
 		'scripts' => array( 'libs/main.js' ),
 		'styles' => array( 'styles/main.less' ),
+		'dependencies' => array(
+			'jquery.tablesorter'
+		),
 		'localBasePath' => __DIR__,
 		'remoteExtPath' => 'CouchDB_Query'
 );
