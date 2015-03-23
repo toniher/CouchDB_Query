@@ -8,6 +8,7 @@ $(document).ready(function(){
 		var total = $(div).data('total');
 		var limit = $(div).data('limit');
 		var header = $(div).data('header');
+		var tableclass = $(div).data('class');
 		var smw = $(div).data('smw');
 		var query = $(div).data('query');
 		var index = $(div).data('index');
@@ -55,7 +56,17 @@ $(document).ready(function(){
 			
 			var posting = $.get( wgScriptPath + "/api.php", params );
 			posting.done(function( data ) {
-				console.log( data );
+				if ( data.status === "OK" ) {
+					if ( data.total ) {
+						$(div).data('total') = data.total;
+						if ( data.results.length > 0 ) {
+							var table = generateResultsTable( data.results, tableclass, header, smw );
+
+							$(div).append( table );
+						}
+					}
+
+				}
 			})
 			.fail( function( data ) {
 				console.log("Error!");
@@ -78,3 +89,64 @@ $( ".couchdb-query-table" ).on( "click", ".next", function() {
 $( ".couchdb-query-table" ).on( "click", ".prev", function() {
 	console.log( "Previous" );
 });
+
+
+function generateResultsTable( results, tableclass, header, smw ) {
+
+	var table = "<table class='" + tableclass + "'>";
+	table = table + "<thead><tr>";
+
+	var headerstr = generateArrayTable( header, "th" );
+	table = table + headerstr;
+
+	table = table + "</tr></thead>";
+
+	table = table + "<tbody>";
+
+	for ( var r = 0; r < results.length; r = r + 1 ) {
+		var rowstr = generateRowTable( results[r], smw, "td" );
+		table = table + "<tr>" + rowstr + "</tr>";
+	}
+
+	table = table + "</tbody>";
+
+	table = table + "</table>";
+
+	return table;
+
+}
+
+function generateArrayTable( arraystr, tag ){
+	var str = "";
+	var array = arraystr.split(",");
+	for ( var i = 0; i < array.length; i = i + 1 ) {
+		str = str + "<" + tag + ">" + array[i] + "</" + tag + ">\n";
+	}
+	return str;
+}
+
+function generateRowTable( result, smw, tag ){
+	var str = "";
+
+	var smwe = smw.split(",");
+	for ( var i = 0; i < smwe.length; i = i + 1 ) {
+		var field = smwe[i].trim();
+
+		var prop = "";
+
+		// Check reference part - OK for now
+		if ( field === '*' ) {
+			if ( result.hasOwnProperty("pagename") ) {
+				fieldTxt = result["pagename"];
+			} else {
+				fieldTxt = "";
+			}
+		} else {
+			prop = " data-prop='"+field+"' ";
+		}
+
+		str = str + "<" + tag + prop + ">" + fieldTxt + "</" + tag + ">\n";
+	}
+	return str;
+}
+
