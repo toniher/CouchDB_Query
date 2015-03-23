@@ -56,11 +56,11 @@ $(document).ready(function(){
 			
 			var posting = $.get( wgScriptPath + "/api.php", params );
 			posting.done(function( data ) {
-				if ( data.status === "OK" ) {
-					if ( data.total ) {
-						$(div).data('total') = data.total;
-						if ( data.results.length > 0 ) {
-							var table = generateResultsTable( data.results, tableclass, header, smw );
+				if ( data[type].status === "OK" ) {
+					if ( data[type].total ) {
+						$(div).data('total') = data[type].total;
+						if ( data[type].results.length > 0 ) {
+							var table = generateResultsTable( data[type].results, tableclass, header, smw );
 
 							$(div).append( table );
 						}
