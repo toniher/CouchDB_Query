@@ -95,7 +95,7 @@ function generateResultsTable( results, tableclass, header, smw ) {
 	var table = "<table class='" + tableclass + "'>";
 	table = table + "<thead><tr>";
 
-	var headerstr = generateArrayTable( header, "th", " class='headerSort'" );
+	var headerstr = generateArrayTable( header, "th", " class=\"headerSort\" title=\"Sort ascending\"" );
 	table = table + headerstr;
 
 	table = table + "</tr></thead>";
