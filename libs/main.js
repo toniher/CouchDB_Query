@@ -150,8 +150,11 @@ function generateRowTable( result, smw, tag ){
 				fieldTxt = "";
 			}
 		} else {
-			prop = " data-prop='"+field+"' ";
+			fieldTxt = "";
 		}
+
+		prop = " data-prop='"+field+"' ";
+
 
 		str = str + "<" + tag + prop + ">" + fieldTxt + "</" + tag + ">\n";
 	}
