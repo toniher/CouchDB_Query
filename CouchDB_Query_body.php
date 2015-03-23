@@ -23,41 +23,34 @@ class CouchDB_Query {
 		$class = "wikitable sortable";
 		$startstr = "";
 		$endstr = "";
+
+		$attrs_ref = array( "limit", "header", "smw", "type", "index", "query", "class", "start", "end" );
+		$attrs = array();
 		
-		// TODO: Pending parsing args?
-		
-		if ( key_exists( "limit", $args ) ) {
-			$limit = $args["limit"];
+		foreach ( $args as $arg ) {
+			$arg_clean = trim( $frame->expand( $arg ) );
+			$arg_proc = explode( "=", $arg_clean, 2 );
+			
+			if ( count( $arg_proc ) == 2 ){
+			
+				if ( in_array( trim( $arg_proc[0] ), $attrs_ref ) ) {
+					$attrs[ trim( $arg_proc[0] ) ] = trim( $arg_proc[1] );
+				}
+			}
 		}
-		if ( key_exists( "header", $args ) ) {
-			$header = $args["header"];
+
+		if ( key_exists( "start", $attrs ) ) {
+			$startstr = " data-start = '".$attrs["start"]."'";
 		}
-		if ( key_exists( "smw", $args ) ) {
-			$smw = $args["smw"];
-		}
-		if ( key_exists( "type", $args ) ) {
-			$type = $args["type"];
-		}
-		if ( key_exists( "index", $args ) ) {
-			$index = $args["index"];
-		}
-		if ( key_exists( "query", $args ) ) {
-			$query = $args["query"];
-		}
-		if ( key_exists( "class", $args ) ) {
-			$class = $args["class"];
-		}
-		if ( key_exists( "start", $args ) ) {
-			$startstr = " data-start = '".$args["start"]."'";
-		}
-		if ( key_exists( "end", $args ) ) {
-			$endstr = " data-end = '".$args["end"]."'";
+		if ( key_exists( "end", $attrs ) ) {
+			$endstr = " data-end = '".$attrs["end"]."'";
 		}
 
 		$out = $parser->getOutput();
 		$out->addModules( 'ext.CouchDB_Query' );
 
-		$returnhtml = "<div class='couchdb-query-table' data-total=0 data-class='$class' $startstr $endstr data-limit='$limit' data-header='$header' data-smw='$smw' data-query='$query' data-index='$index' data-type='$type' data-skip=0 ></div>";
+		$returnhtml = "<div class='couchdb-query-table' data-total=0 data-skip=0 data-class='".$attrs["class"]."'".$startstr.$endstr;
+		$returnhtml.= " data-limit='".$attrs["limit"]."' data-header='".$attrs["header"]."' data-smw='".$attrs["smw"]."' data-query='".$attrs["query"]."' data-index='".$attrs["index"]."' data-type='".$attrs["type"]."'></div>";
 
 		return array( $returnhtml, 'noparse' => true, 'isHTML' => true );
 
