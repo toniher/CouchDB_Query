@@ -14,18 +14,18 @@ class CouchDB_Query {
 		// Get data from parser args and to data
 		// Defaults
 		
-		$limit =  "25";
-		$header = "Page name";
-		$smw = "*";
-		$type = "";
-		$index = "";
-		$query = "";
-		$class = "wikitable sortable";
+		$attrs = array();
+		$attrs["limit"] =  "25";
+		$attrs["header"] = "Page name";
+		$attrs["smw"] = "*";
+		$attrs["type"] = "";
+		$attrs["index"] = "";
+		$attrs["query"] = "";
+		$attrs["class"] = "wikitable sortable";
 		$startstr = "";
 		$endstr = "";
 
 		$attrs_ref = array( "limit", "header", "smw", "type", "index", "query", "class", "start", "end" );
-		$attrs = array();
 		
 		foreach ( $args as $arg ) {
 			$arg_clean = trim( $frame->expand( $arg ) );
