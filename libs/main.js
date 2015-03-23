@@ -165,8 +165,20 @@ function generateRowTable( result, smw, tag ){
 }
 
 
-function generateSMWTable( table, smw ){
-	console.log( table );
+function generateSMWTable( tables, smw ){
+
+	$(tables).each( function( i ) {
+
+		$(this).children("tbody tr").each( function( r ) {
+
+			var pagename = "";
+			var text = $(this).children("td[data-prop=*]").get(0).text();
+			console.log( text );
+
+		});
+
+	});
+
 	console.log( smw );
 }
 
