@@ -57,11 +57,10 @@ $(document).ready(function(){
 			var posting = $.get( wgScriptPath + "/api.php", params );
 			posting.done(function( data ) {
 				if ( data[type].status === "OK" ) {
-					if ( data[type].total ) {
-						$(div).data('total') = data[type].total;
+					if ( data[type].count ) {
+						$(div).data('total', data[type].count);
 						if ( data[type].results.length > 0 ) {
 							var table = generateResultsTable( data[type].results, tableclass, header, smw );
-
 							$(div).append( table );
 						}
 					}
@@ -96,7 +95,7 @@ function generateResultsTable( results, tableclass, header, smw ) {
 	var table = "<table class='" + tableclass + "'>";
 	table = table + "<thead><tr>";
 
-	var headerstr = generateArrayTable( header, "th" );
+	var headerstr = generateArrayTable( header, "th", " class='headerSort'" );
 	table = table + headerstr;
 
 	table = table + "</tr></thead>";
@@ -116,11 +115,13 @@ function generateResultsTable( results, tableclass, header, smw ) {
 
 }
 
-function generateArrayTable( arraystr, tag ){
+function generateArrayTable( arraystr, tag, extra ){
 	var str = "";
 	var array = arraystr.split(",");
+	extra = typeof extra !== 'undefined' ? extra : '';
+
 	for ( var i = 0; i < array.length; i = i + 1 ) {
-		str = str + "<" + tag + ">" + array[i] + "</" + tag + ">\n";
+		str = str + "<" + tag + extra + ">" + array[i] + "</" + tag + ">\n";
 	}
 	return str;
 }
