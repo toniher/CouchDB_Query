@@ -62,6 +62,7 @@ $(document).ready(function(){
 						if ( data[type].results.length > 0 ) {
 							var table = generateResultsTable( data[type].results, tableclass, header, smw );
 							$(div).append( table );
+							generateSMWTable( $(div).children("table"), smw );
 							$(div).children("table").tablesorter(); //Let's make table sortable
 						}
 					}
@@ -100,7 +101,6 @@ function generateResultsTable( results, tableclass, header, smw ) {
 	table = table + headerstr;
 
 	table = table + "</tr></thead>";
-
 	table = table + "<tbody>";
 
 	for ( var r = 0; r < results.length; r = r + 1 ) {
@@ -109,7 +109,6 @@ function generateResultsTable( results, tableclass, header, smw ) {
 	}
 
 	table = table + "</tbody>";
-
 	table = table + "</table>";
 
 	return table;
@@ -164,4 +163,11 @@ function generateRowTable( result, smw, tag ){
 	}
 	return str;
 }
+
+
+function generateSMWTable( table, smw ){
+	console.log( table );
+	console.log( smw );
+}
+
 
