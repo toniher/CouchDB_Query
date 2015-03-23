@@ -171,9 +171,28 @@ function generateSMWTable( tables, smw ){
 
 		$(this).children("tbody tr").each( function( r ) {
 
-			var pagename = "";
-			var text = $(this).children("td[data-prop=*]").get(0).text();
-			console.log( text );
+			//console.log( this );
+			var pagename = $(this).children("td").filter("[data-prop='*']").first().text();
+			// Generate ask query from this
+			console.log( pagename );
+
+			if ( pagename ) {
+				var smwe = smw.split(",");
+				var query = "";
+				for ( var i = 0; i < smwe.length; i = i + 1 ) {
+					var field = smwe[i].trim();
+					
+				}
+
+				var params = {};
+				var posting = $.get( wgScriptPath + "/api.php", params );
+				posting.done(function( data ) {
+
+				})
+				.fail( function( data ) {
+					console.log("Error!");
+				});
+			}
 
 		});
 
