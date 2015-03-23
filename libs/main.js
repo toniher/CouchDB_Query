@@ -185,8 +185,6 @@ function generateSMWTable( tables, fields ){
 			var row = this;
             var pagename = $(row).children("td").filter("[data-prop='*']").first().text();
             // Generate ask query from this
-            console.log( pagename );
-
             if ( pagename ) {
 
                 var params = {};
