@@ -197,19 +197,20 @@ function generateSMWTable( tables, fields ){
                 
                 var posting = $.get( wgScriptPath + "/api.php", params );
                 posting.done(function( out ) {
-					if ( out && out.hasOwnProperty("results") ) {
-						if ( out["results"].hasOwnProperty( pagename ) ) {
-							if ( out["results"][pagename].hasOwnProperty("printouts") ) {
-								var printouts = out["results"][pagename].hasOwnProperty("printouts");
-								for ( var prop in printouts ){
-									if ( printouts.hasOwnProperty( prop ) ) {
-										console.log( printouts[prop][0] );
+					if ( out && out.hasOwnProperty("query") ) {
+						if ( out["query"].hasOwnProperty("results") ) {
+							if ( out["query"]["results"].hasOwnProperty( pagename ) ) {
+								if ( out["query"]["results"][pagename].hasOwnProperty("printouts") ) {
+									var printouts = out["query"]["results"][pagename].hasOwnProperty("printouts");
+									for ( var prop in printouts ){
+										if ( printouts.hasOwnProperty( prop ) ) {
+											console.log( printouts[prop][0] );
+										}
 									}
 								}
 							}
 						}
 					}
-
                 })
                 .fail( function( out ) {
                     console.log("Error!");
