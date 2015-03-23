@@ -204,7 +204,11 @@ function generateSMWTable( tables, fields ){
 									var printouts = out["query"]["results"][pagename]["printouts"];
 									for ( var prop in printouts ){
 										if ( printouts.hasOwnProperty( prop ) ) {
-											console.log( printouts[prop][0] );
+											if ( prop ) {
+												var tdvalue = $(row).children("td").filter("[data-prop='"+prop+"']").first();
+												$(tdvalue).text( printouts[prop][0] );
+
+											}
 										}
 									}
 								}
