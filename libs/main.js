@@ -135,11 +135,13 @@ function generateRowTable( result, smw, tag ){
 		var field = smwe[i].trim();
 
 		var prop = "";
+		var pagename = null;
 
 		// Check reference part - OK for now
 		if ( field === '*' ) {
 			if ( result.hasOwnProperty("pagename") ) {
 				fieldTxt = result["pagename"];
+				pagename = fieldTxt;
 			} else {
 				fieldTxt = "";
 			}
@@ -150,12 +152,14 @@ function generateRowTable( result, smw, tag ){
 				fieldTxt = "";
 			}
 		} else {
-			fieldTxt = "";
+			if ( pagename ) {
+				// SMW query here
+				
+			} else {
+				fieldTxt = "";
+			}
 		}
-
 		prop = " data-prop='"+field+"' ";
-
-
 		str = str + "<" + tag + prop + ">" + fieldTxt + "</" + tag + ">\n";
 	}
 	return str;
