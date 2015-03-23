@@ -143,6 +143,12 @@ function generateRowTable( result, smw, tag ){
 			} else {
 				fieldTxt = "";
 			}
+		} else if ( field === '*score' ) {
+			if ( result.hasOwnProperty("score") ) {
+				fieldTxt = result["score"];
+			} else {
+				fieldTxt = "";
+			}
 		} else {
 			prop = " data-prop='"+field+"' ";
 		}
