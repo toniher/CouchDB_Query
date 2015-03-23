@@ -62,7 +62,7 @@ $(document).ready(function(){
 						if ( data[type].results.length > 0 ) {
 							var table = generateResultsTable( data[type].results, tableclass, header, smw );
 							$(div).append( table );
-							$(div).children.get(0).tablesorter();
+							$(div).children("table").tablesorter(); //Let's make table sortable
 						}
 					}
 
