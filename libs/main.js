@@ -9,18 +9,32 @@
 	// Next, previous, detecting data-total and data-limit, etc.
 	
 	$( ".couchdb-query-table" ).on( "click", ".bar > .next", function() {
-		console.log( "Next" );
+
 		var div = $( this ).parents(".couchdb-query-table").first();
 		var limit = parseInt( $(div).data('limit') );
 		var skip = parseInt( $(div).data('skip') );
 
 		$(div).data('skip', skip + limit );
-		
+		$(div).empty();
+
 		iterateTable();
 	});
 	
 	$( ".couchdb-query-table" ).on( "click", ".prev", function() {
-		console.log( "Previous" );
+
+		var div = $( this ).parents(".couchdb-query-table").first();
+		var limit = parseInt( $(div).data('limit') );
+		var skip = parseInt( $(div).data('skip') );
+
+		var newskip = skip - limit;
+		if ( newskip < 0 ) {
+			newskip = 0;
+		}
+
+		$(div).data('skip', newskip );
+		$(div).empty();
+
+		iterateTable();
 	});
 	
 	function iterateTable() {
