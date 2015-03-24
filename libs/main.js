@@ -115,8 +115,9 @@
 								if ( parseInt( skip, 10 ) > 0 ) {
 									prev = "<span class='prev'>Previous</span>";
 								}
-								$(div).append("<p class='bar'>"+prev+next+"</p>");
-								$(div).prepend("<p class='bar'>"+prev+next+"</p>");
+								var input = "<input name='query' type='text' size=10>";
+								$(div).append("<p class='bar'>"+input+prev+next+"</p>");
+								$(div).prepend("<p class='bar'>"+input+prev+next+"</p>");
 							}
 						}
 	
@@ -256,7 +257,6 @@
 			});
 		
 		});
-	
 	}
 
 	if (typeof String.prototype.startsWith != 'function') {
