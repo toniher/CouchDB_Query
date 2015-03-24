@@ -9,7 +9,7 @@
 	
 
 	// Look for changes in the value
-	$( ".couchdb-query-table" ).delegate("input", "propertychange change click keyup input paste", function(event){
+	$( ".couchdb-query-table" ).on( "propertychange change click keyup input paste", "input", function(event){
 		// If value has changed...
 		if ( inputsave !== $(this).val()) {
 			// Updated stored value
