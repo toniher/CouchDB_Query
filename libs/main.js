@@ -118,24 +118,30 @@
 						if ( data[type].count ) {
 							$(div).data('total', data[type].count);
 
-							$(div).empty();
-							var prev = ""; var next = "";
+							var bar = $(div).find(".bar").length();
 
-							if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
-								next = "<span class='next'>Next</span>";
-							}
-							if ( parseInt( skip, 10 ) > 0 ) {
-								prev = "<span class='prev'>Previous</span>";
-							}
+							var prev = ""; var next = "";
 							var input = "<input name='query' type='text' size=10>";
-							$(div).append("<p class='bar'>"+input+prev+next+"</p>");
+							$(div).find("table").remove();
+
+							if ( bar === 0 ) {
+								
+								if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
+									next = "<span class='next'>Next</span>";
+								}
+								if ( parseInt( skip, 10 ) > 0 ) {
+									prev = "<span class='prev'>Previous</span>";
+								}
+
+								$(div).append("<p class='bar'>"+input+prev+next+"</p>");
+
+							}
 
 							if ( data[type].results.length > 0 ) {
 								var table = generateResultsTable( data[type].results, tableclass, header, fields );
 								$(div).append( table );
 								generateSMWTable( $(div).children("table"), fields );
 								$(div).children("table").tablesorter(); //Let's make table sortable
-								$(div).append("<p class='bar'>"+input+prev+next+"</p>");
 
 							}
 						}
