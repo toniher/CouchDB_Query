@@ -13,8 +13,13 @@
 		// If value has changed...
 		if ( inputsave !== $(this).val()) {
 			// Updated stored value
-			console.log( "Change" );
 			inputsave = $(this).val();
+			var div = $( this ).parents(".couchdb-query-table").first();
+
+			$(div).data('query', inputsave );
+			if ( inputsave.length > 2 ) {
+				iterateTable();
+			}
 		}
 	});
 	
