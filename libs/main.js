@@ -144,23 +144,25 @@
 		
 			var prop = "";
 			var pagename = null;
-		
+			var fieldTxt = "";
+
 			// Check reference part - OK for now
 			if ( field === '*' ) {
 				if ( result.hasOwnProperty("pagename") ) {
 					fieldTxt = result["pagename"];
 					pagename = fieldTxt;
-				} else {
-					fieldTxt = "";
+				}
+			} else if ( field === '*link' ) {
+				if ( result.hasOwnProperty("pagename") ) {
+					pagename = result["pagename"];
+					var url = wgArticlePath.replace('$1', pagename )
+					fieldTxt = "<a href='" + url +"'>" + pagename + "</a>";
 				}
 			} else if ( field === '*score' ) {
 				if ( result.hasOwnProperty("score") ) {
 					fieldTxt = result["score"];
-				} else {
-					fieldTxt = "";
 				}
 			} else {
-		
 				fieldTxt = "";
 			}
 			prop = " data-prop='"+field+"' ";
@@ -175,7 +177,7 @@
 		var fieldsSMW = [];
 		
 		for ( var i = 0; i < fields.length; i = i + 1 ) {
-			if ( fields[i] !== "*" || fields[i] !== "*score" ) {
+			if ( ! fields[i].startsWith("*") ) {
 				fieldsSMW.push( fields[i] );
 			}
 		}
@@ -227,5 +229,13 @@
 		});
 	
 	}
+
+	if (typeof String.prototype.startsWith != 'function') {
+		// see below for better implementation!
+		String.prototype.startsWith = function (str){
+		  return this.indexOf(str) === 0;
+		};
+	}
+
 } )( jQuery, mediaWiki );
 
