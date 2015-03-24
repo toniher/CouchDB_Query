@@ -18,6 +18,7 @@
 
 			$(div).data('query', inputsave );
 			if ( inputsave.length > 2 ) {
+				$(div).empty();
 				iterateTable();
 			}
 		}
