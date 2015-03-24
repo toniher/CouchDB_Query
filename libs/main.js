@@ -2,7 +2,28 @@
 ( function( $, mw ) {
 
 	$(document).ready(function(){
-		
+		iterateTable();
+	});
+	
+	
+	// Next, previous, detecting data-total and data-limit, etc.
+	
+	$( ".couchdb-query-table" ).on( "click", ".next", function() {
+		console.log( "Next" );
+		var limit = parseInt( $(div).data('limit') );
+		var skip = parseInt( $(div).data('skip') );
+
+		$(div).data('skip', skip + limit );
+
+		iterateTable();
+	});
+	
+	$( ".couchdb-query-table" ).on( "click", ".prev", function() {
+		console.log( "Previous" );
+	});
+	
+	function iterateTable() {
+
 		$( ".couchdb-query-table" ).each( function( i ) {
 			var div = this;
 
@@ -91,20 +112,7 @@
 				});
 			}
 		});
-	
-	});
-	
-	
-	// Next, previous, detecting data-total and data-limit, etc.
-	
-	$( ".couchdb-query-table" ).on( "click", ".next", function() {
-		console.log( "Next" );
-	});
-	
-	$( ".couchdb-query-table" ).on( "click", ".prev", function() {
-		console.log( "Previous" );
-	});
-	
+	}
 	
 	function generateResultsTable( results, tableclass, header, fields ) {
 	
