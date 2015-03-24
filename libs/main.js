@@ -73,6 +73,7 @@
 				var params = {};
 				params["index"] = index;
 				params["db"] = db;
+				params["q"] = "";
 	
 				if ( limit !== "" ) {
 					params["limit"] = limit;
