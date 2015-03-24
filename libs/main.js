@@ -1,32 +1,24 @@
 /** Inspect all table instances **/
 ( function( $, mw ) {
 
+	var inputsave = "";
+
 	$(document).ready(function(){
 		iterateTable();
-
-		$('.couchdb-query-table input').each(function() {
-
-			var elem = $(this);
-			
-			// Save current value of element
-			elem.data('oldVal', elem.val());
-			
-			// Look for changes in the value
-			elem.bind("propertychange change click keyup input paste", function(event){
-				// If value has changed...
-				if (elem.data('oldVal') != elem.val()) {
-					// Updated stored value
-					elem.data('oldVal', elem.val());
-					console.log( "Change" );
-				}
-		  });
-		});
-
 	});
 	
+
+	// Look for changes in the value
+	$( ".couchdb-query-table input" ).on("propertychange change click keyup input paste", function(event){
+		// If value has changed...
+		if ( inputsave !== $(this).val()) {
+			// Updated stored value
+			console.log( "Change" );
+			inputsave = $(this).val();
+		}
+	});
 	
 	// Next, previous, detecting data-total and data-limit, etc.
-	
 	$( ".couchdb-query-table" ).on( "click", ".bar > .next", function() {
 
 		var div = $( this ).parents(".couchdb-query-table").first();
