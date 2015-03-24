@@ -189,6 +189,9 @@
 				//console.log( this );
 				var row = this;
 				var pagename = $(row).children("td").filter("[data-prop='*']").first().text();
+				if ( ! pagename ) {
+					$(row).children("td").filter("[data-prop='*link']").first().text();
+				}
 				// Generate ask query from this
 				if ( pagename ) {
 		
