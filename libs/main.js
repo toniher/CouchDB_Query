@@ -18,7 +18,6 @@
 
 			$(div).data('query', inputsave );
 			if ( inputsave.length > 2 ) {
-				$(div).empty();
 				iterateTable();
 			}
 		}
@@ -32,7 +31,6 @@
 		var skip = parseInt( $(div).data('skip') );
 
 		$(div).data('skip', skip + limit );
-		$(div).empty();
 
 		iterateTable();
 	});
@@ -49,12 +47,9 @@
 		}
 
 		$(div).data('skip', newskip );
-		$(div).empty();
 
 		iterateTable();
 	});
-
-
 
 	
 	function iterateTable() {
@@ -123,6 +118,7 @@
 						if ( data[type].count ) {
 							$(div).data('total', data[type].count);
 
+							$(div).empty();
 							var prev = ""; var next = "";
 
 							if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
