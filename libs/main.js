@@ -118,7 +118,7 @@
 						if ( data[type].count ) {
 							$(div).data('total', data[type].count);
 
-							var bar = $(div).find(".bar").length();
+							var bar = $(div).find(".bar").length;
 
 							var prev = ""; var next = "";
 							var input = "<input name='query' type='text' size=10>";
