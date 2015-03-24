@@ -4,7 +4,6 @@
 	$(document).ready(function(){
 		
 		$( ".couchdb-query-table" ).each( function( i ) {
-			
 			var div = this;
 	
 			var total = $(div).data('total');
@@ -73,6 +72,16 @@
 								$(div).append( table );
 								generateSMWTable( $(div).children("table"), fields );
 								$(div).children("table").tablesorter(); //Let's make table sortable
+								var prev = ""; var next = "";
+
+								if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
+									next = "<span class='next'>Next</span>";
+								}
+								if ( parseInt( skip, 10 ) > 0 ) {
+									prev = "<span class='prev'>Previous</span>";
+								}
+								$(div).append("<p class='bar'>"+prev+next+"</p>");
+								$(div).prepend("<p class='bar'>"+prev+next+"</p>");
 							}
 						}
 	
@@ -81,10 +90,7 @@
 				.fail( function( data ) {
 					console.log("Error!");
 				});
-	
-				
 			}
-			
 		});
 	
 	});
@@ -213,7 +219,6 @@
 												if ( prop ) {
 													var tdvalue = $(row).children("td").filter("[data-prop='"+prop+"']").first();
 													$(tdvalue).text( printouts[prop][0] );
-		
 												}
 											}
 										}
@@ -226,7 +231,6 @@
 						console.log("Error!");
 					});
 				}
-		
 			});
 		
 		});
