@@ -5,8 +5,7 @@
 		
 		$( ".couchdb-query-table" ).each( function( i ) {
 			var div = this;
-	
-			var total = $(div).data('total');
+
 			var limit = $(div).data('limit');
 			var header = $(div).data('header');
 			var tableclass = $(div).data('class');
