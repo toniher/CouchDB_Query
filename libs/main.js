@@ -81,15 +81,13 @@
 					params["skip"] = skip;
 				}
 				
-				if ( query !== "" ) {
-					if ( type.indexOf("lucene") > -1 ) {
-						params["q"] = query;
+				if ( type.indexOf("lucene") > -1 ) {
+					params["q"] = query;
+				} else {
+					if ( query.indexOf("[") > -1 ){
+						params["keys"] = query;
 					} else {
-						if ( query.indexOf("[") > -1 ){
-							params["keys"] = query;
-						} else {
-							params["key"] = query;
-						}
+						params["key"] = query;
 					}
 				}
 	
