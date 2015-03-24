@@ -122,22 +122,25 @@
 					if ( data[type].status === "OK" ) {
 						if ( data[type].count ) {
 							$(div).data('total', data[type].count);
+
+							var prev = ""; var next = "";
+
+							if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
+								next = "<span class='next'>Next</span>";
+							}
+							if ( parseInt( skip, 10 ) > 0 ) {
+								prev = "<span class='prev'>Previous</span>";
+							}
+							var input = "<input name='query' type='text' size=10>";
+							$(div).append("<p class='bar'>"+input+prev+next+"</p>");
+
 							if ( data[type].results.length > 0 ) {
 								var table = generateResultsTable( data[type].results, tableclass, header, fields );
 								$(div).append( table );
 								generateSMWTable( $(div).children("table"), fields );
 								$(div).children("table").tablesorter(); //Let's make table sortable
-								var prev = ""; var next = "";
-
-								if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
-									next = "<span class='next'>Next</span>";
-								}
-								if ( parseInt( skip, 10 ) > 0 ) {
-									prev = "<span class='prev'>Previous</span>";
-								}
-								var input = "<input name='query' type='text' size=10>";
 								$(div).append("<p class='bar'>"+input+prev+next+"</p>");
-								$(div).prepend("<p class='bar'>"+input+prev+next+"</p>");
+
 							}
 						}
 	
