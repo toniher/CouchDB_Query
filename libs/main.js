@@ -2,6 +2,7 @@
 ( function( $, mw ) {
 
 	var inputsave = "";
+	var timer, delay = 500;
 
 	$(document).ready(function(){
 		iterateTable();
@@ -10,17 +11,25 @@
 
 	// Look for changes in the value
 	$( ".couchdb-query-table" ).on( "propertychange change click keyup input paste", "input", function(event){
-		// If value has changed...
-		if ( inputsave !== $(this).val()) {
-			// Updated stored value
-			inputsave = $(this).val();
-			var div = $( this ).parents(".couchdb-query-table").first();
 
-			$(div).data('text', inputsave );
-			if ( inputsave.length > 2 ) {
-				iterateTable();
+		var _this = $(this);
+		clearTimeout(timer);
+
+		timer = setTimeout(function() {
+			// If value has changed...
+	
+			if ( inputsave !== $(_this).val()) {
+				// Updated stored value
+				inputsave = $(_this).val();
+				var div = $( _this ).parents(".couchdb-query-table").first();
+	
+				$(div).data('text', inputsave );
+				if ( inputsave.length > 2 ) {
+	
+					iterateTable();
+				}
 			}
-		}
+		}, 200, function() {});
 	});
 	
 	// Next, previous, detecting data-total and data-limit, etc.
