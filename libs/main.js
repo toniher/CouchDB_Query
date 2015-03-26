@@ -68,7 +68,6 @@
 			var db = $(div).data('db');
 			var text = $(div).data('text');
 
-	
 			// Stricty necessary
 			if ( type !== "" && index !== "" && db !== "" ) {
 		
@@ -120,49 +119,52 @@
 					$(div).append("<p class='bar'>"+input+"</p>");
 				}
 
-				var posting = $.get( wgScriptPath + "/api.php", params );
-				posting.done(function( data ) {
-					if ( data[type].status === "OK" ) {
-						if ( data[type].count ) {
-							$(div).data('total', data[type].count);
+				if ( params['query'].search(/\$\d/gi) < 1 ) {
 
-							var prev = ""; var next = ""; var count = "";
-							$(div).find("table").remove();
-							$(div).find(".bar > span").remove();
-
-							if ( data[type].count > 0 ) {
-								count = "<span class='count'>" + data[type].count + "</span>";
+					var posting = $.get( wgScriptPath + "/api.php", params );
+					posting.done(function( data ) {
+						if ( data[type].status === "OK" ) {
+							if ( data[type].count ) {
+								$(div).data('total', data[type].count);
+	
+								var prev = ""; var next = ""; var count = "";
+								$(div).find("table").remove();
+								$(div).find(".bar > span").remove();
+	
+								if ( data[type].count > 0 ) {
+									count = "<span class='count'>" + data[type].count + "</span>";
+								}
+	
+								if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
+									next = "<span class='next'>Next</span>";
+								}
+								if ( parseInt( skip, 10 ) > 0 ) {
+									prev = "<span class='prev'>Previous</span>";
+								}
+	
+								$(div).find(".bar").first().append(count+prev+next);
+	
+								if ( data[type].results.length > 0 ) {
+									var table = generateResultsTable( data[type].results, tableclass, header, fields );
+									$(div).append( table );
+									generateSMWTable( $(div).children("table"), fields );
+									$(div).children("table").tablesorter(); //Let's make table sortable
+	
+								} 
+							} else {
+								$(div).find("table").remove();
+								$(div).find(".bar > span").remove();
 							}
-
-							if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
-								next = "<span class='next'>Next</span>";
-							}
-							if ( parseInt( skip, 10 ) > 0 ) {
-								prev = "<span class='prev'>Previous</span>";
-							}
-
-							$(div).find(".bar").first().append(count+prev+next);
-
-							if ( data[type].results.length > 0 ) {
-								var table = generateResultsTable( data[type].results, tableclass, header, fields );
-								$(div).append( table );
-								generateSMWTable( $(div).children("table"), fields );
-								$(div).children("table").tablesorter(); //Let's make table sortable
-
-							} 
+		
 						} else {
 							$(div).find("table").remove();
 							$(div).find(".bar > span").remove();
 						}
-	
-					} else {
-						$(div).find("table").remove();
-						$(div).find(".bar > span").remove();
-					}
-				})
-				.fail( function( data ) {
-					console.log("Error!");
-				});
+					})
+					.fail( function( data ) {
+						console.log("Error!");
+					});
+				}
 			}
 		});
 	}
@@ -170,7 +172,7 @@
 	function subsTextQuery( query, text ) {
 
 		if ( text ) {
-			query = query.replace( "$1", text, query );
+			query = query.replace( /\$1/g, text );
 		}
 
 		return query;
