@@ -10,6 +10,10 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 	
 		$count = $outcome->total_rows;
 		$rows = array();
+
+		$result = $this->getResult();
+		$result->addValue( null, $this->getModuleName(), array ( 'status' => "OK", 'count' => $count ) );
+
 		foreach ( $outcome->rows as $row ) {
 			//var_dump( $row );
 			$rowid = $row->id;
@@ -24,19 +28,22 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 				$newrow["id"] = $rowid;
 				$newrow["score"] = $row->score;
 				$newrow["pagename"] = $fullpagename;
+				$newrow["fields"] = $row->fields;
 
 				array_push( $rows, $newrow );
 			}
 
-		}	
-
-
-		$result = $this->getResult();
-		$result->addValue( null, $this->getModuleName(), array ( 'status' => "OK", 'count' => $count ) );
+		}
 
 		$results = array();
 		foreach ( $rows as $row ) {
-			
+
+			$fields = array();
+			foreach ( $row["fields"] as $field ) {
+				$field->setIndexedTagName( $row, 'field' );
+				$fields[] = $field;
+			}
+
 			$result->setIndexedTagName( $row, 'result' );
 			$results[] = $row;
 		}
