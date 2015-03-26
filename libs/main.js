@@ -119,7 +119,7 @@
 					$(div).append("<p class='bar'>"+input+"</p>");
 				}
 
-				if ( params['query'].search(/\$\d/gi) < 1 ) {
+				if ( params['q'].search(/\$\d/gi) < 1 ) {
 
 					var posting = $.get( wgScriptPath + "/api.php", params );
 					posting.done(function( data ) {
