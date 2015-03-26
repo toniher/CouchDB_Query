@@ -2,7 +2,7 @@
 ( function( $, mw ) {
 
 	var inputsave = "";
-	var timer, delay = 500;
+	var timer, delay = 700;
 
 	$(document).ready(function(){
 		iterateTable();
@@ -29,7 +29,7 @@
 					iterateTable();
 				}
 			}
-		}, 200, function() {});
+		}, 300, function() {});
 	});
 	
 	// Next, previous, detecting data-total and data-limit, etc.
