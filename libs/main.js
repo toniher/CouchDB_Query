@@ -122,6 +122,7 @@
 							var prev = ""; var next = "";
 							var input = "<input name='query' type='text' size=10>";
 							$(div).find("table").remove();
+							$(div).find(".bar > span").remove();
 
 							if ( bar === 0 ) {
 								
@@ -145,6 +146,7 @@
 							} 
 						} else {
 							$(div).find("table").remove();
+							$(div).find(".bar > span").remove();
 						}
 	
 					} else {
