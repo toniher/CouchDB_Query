@@ -292,6 +292,8 @@
 													var finvalue = printouts[prop][0];
 													if ( typeof finvalue === 'object' ) {
 														finvalue = finvalue.fulltext;
+														var url = wgArticlePath.replace('$1', finvalue )
+														finvalue = "<a href='" + url +"'>" + finvalue + "</a>";
 													}
 													$(tdvalue).text( finvalue );
 												}
