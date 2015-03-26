@@ -69,7 +69,7 @@
 			var limit = $(div).data('limit');
 			var header = $(div).data('header');
 			var tableclass = $(div).data('class');
-			var smw = $(div).data('smw');
+			var fieldsp = $(div).data('fields');
 			var query = $(div).data('query');
 			var index = $(div).data('index');
 			var type = $(div).data('type');
@@ -115,10 +115,10 @@
 				params.format = "json";
 				
 							
-				var smwe = smw.split(",");
+				var fieldse = fieldsp.split(",");
 				var fields = [];
-				for ( var s = 0; s < smwe.length; s = s + 1 ) {
-					fields.push( smwe[s].trim() );
+				for ( var s = 0; s < fieldse.length; s = s + 1 ) {
+					fields.push( fieldse[s].trim() );
 				}
 				
 				// Let's put bar
@@ -156,7 +156,7 @@
 								if ( data[type].results.length > 0 ) {
 									var table = generateResultsTable( data[type].results, tableclass, header, fields );
 									$(div).append( table );
-									generateSMWTable( $(div).children("table"), fields );
+									// generateSMWTable( $(div).children("table"), fields );
 									$(div).children("table").tablesorter(); //Let's make table sortable
 	
 								} 
@@ -249,7 +249,9 @@
 					fieldTxt = result["score"];
 				}
 			} else {
-				fieldTxt = "";
+				if ( result.hasOwnProperty("fields") && result["fields"].hasOwnProperty(field) ) {
+					fieldTxt = result["fields"][field];
+				}
 			}
 			prop = " data-prop='"+field+"' ";
 			str = str + "<" + tag + prop + ">" + fieldTxt + "</" + tag + ">\n";
