@@ -16,7 +16,7 @@
 			inputsave = $(this).val();
 			var div = $( this ).parents(".couchdb-query-table").first();
 
-			$(div).data('query', inputsave );
+			$(div).data('text', inputsave );
 			if ( inputsave.length > 2 ) {
 				iterateTable();
 			}
