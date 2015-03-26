@@ -232,7 +232,7 @@
 			} else if ( field === '*link' ) {
 				if ( result.hasOwnProperty("pagename") ) {
 					pagename = result["pagename"];
-					var url = wgArticlePath.replace('$1', pagename )
+					var url = wgArticlePath.replace('$1', pagename );
 					fieldTxt = "<a href='" + url +"'>" + pagename + "</a>";
 				}
 			} else if ( field === '*score' ) {
@@ -292,10 +292,11 @@
 													var finvalue = printouts[prop][0];
 													if ( typeof finvalue === 'object' ) {
 														finvalue = finvalue.fulltext;
-														var url = wgArticlePath.replace('$1', finvalue )
-														finvalue = "<a href='" + url +"'>" + finvalue + "</a>";
+														var url = wgArticlePath.replace('$1', finvalue );
+														$(tdvalue).append( "<a href='" + url +"'>" + finvalue + "</a>" );
+													} else {
+														$(tdvalue).text( finvalue );
 													}
-													$(tdvalue).text( finvalue );
 												}
 											}
 										}
