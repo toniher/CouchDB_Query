@@ -110,7 +110,11 @@
 				for ( var s = 0; s < smwe.length; s = s + 1 ) {
 					fields.push( smwe[s].trim() );
 				}
-							
+				
+				// Let's put bar
+				var input = "<input name='query' type='text' size=10>";
+				$(div).append("<p class='bar'>"+input+"</p>");
+
 				var posting = $.get( wgScriptPath + "/api.php", params );
 				posting.done(function( data ) {
 					if ( data[type].status === "OK" ) {
@@ -120,7 +124,6 @@
 							var bar = $(div).find(".bar").length;
 
 							var prev = ""; var next = "";
-							var input = "<input name='query' type='text' size=10>";
 							$(div).find("table").remove();
 							$(div).find(".bar > span").remove();
 
@@ -133,7 +136,7 @@
 									prev = "<span class='prev'>Previous</span>";
 								}
 
-								$(div).append("<p class='bar'>"+input+prev+next+"</p>");
+								$(div).find(".bar").first().append(prev+next);
 
 							}
 
@@ -151,6 +154,7 @@
 	
 					} else {
 						$(div).find("table").remove();
+						$(div).find(".bar > span").remove();
 					}
 				})
 				.fail( function( data ) {
