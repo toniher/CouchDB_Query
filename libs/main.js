@@ -142,9 +142,13 @@
 								generateSMWTable( $(div).children("table"), fields );
 								$(div).children("table").tablesorter(); //Let's make table sortable
 
-							}
+							} 
+						} else {
+							$(div).find("table").remove();
 						}
 	
+					} else {
+						$(div).find("table").remove();
 					}
 				})
 				.fail( function( data ) {
