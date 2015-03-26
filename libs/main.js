@@ -112,8 +112,11 @@
 				}
 				
 				// Let's put bar
-				var input = "<input name='query' type='text' size=10>";
-				$(div).append("<p class='bar'>"+input+"</p>");
+				var bar = $(div).find(".bar").length;
+				if ( bar === 0 ) {
+					var input = "<input name='query' type='text' size=10>";
+					$(div).append("<p class='bar'>"+input+"</p>");
+				}
 
 				var posting = $.get( wgScriptPath + "/api.php", params );
 				posting.done(function( data ) {
@@ -121,24 +124,18 @@
 						if ( data[type].count ) {
 							$(div).data('total', data[type].count);
 
-							var bar = $(div).find(".bar").length;
-
 							var prev = ""; var next = "";
 							$(div).find("table").remove();
 							$(div).find(".bar > span").remove();
-
-							if ( bar === 0 ) {
 								
-								if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
-									next = "<span class='next'>Next</span>";
-								}
-								if ( parseInt( skip, 10 ) > 0 ) {
-									prev = "<span class='prev'>Previous</span>";
-								}
-
-								$(div).find(".bar").first().append(prev+next);
-
+							if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
+								next = "<span class='next'>Next</span>";
 							}
+							if ( parseInt( skip, 10 ) > 0 ) {
+								prev = "<span class='prev'>Previous</span>";
+							}
+
+							$(div).find(".bar").first().append(prev+next);
 
 							if ( data[type].results.length > 0 ) {
 								var table = generateResultsTable( data[type].results, tableclass, header, fields );
