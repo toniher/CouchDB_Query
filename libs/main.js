@@ -289,7 +289,11 @@
 											if ( printouts.hasOwnProperty( prop ) ) {
 												if ( prop ) {
 													var tdvalue = $(row).children("td").filter("[data-prop='"+prop+"']").first();
-													$(tdvalue).text( printouts[prop][0] );
+													var finvalue = printouts[prop][0];
+													if ( typeof finvalue === 'object' ) {
+														finvalue = finvalue.fulltext;
+													}
+													$(tdvalue).text( finvalue );
 												}
 											}
 										}
