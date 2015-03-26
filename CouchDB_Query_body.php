@@ -17,7 +17,7 @@ class CouchDB_Query {
 		$attrs = array();
 		$attrs["limit"] =  "25";
 		$attrs["header"] = "Page name";
-		$attrs["smw"] = "*";
+		$attrs["fields"] = "*";
 		$attrs["type"] = "";
 		$attrs["index"] = "";
 		$attrs["query"] = "";
@@ -26,7 +26,7 @@ class CouchDB_Query {
 		$startstr = "";
 		$endstr = "";
 
-		$attrs_ref = array( "limit", "header", "smw", "type", "index", "query", "class", "start", "end", "db", "text" );
+		$attrs_ref = array( "limit", "header", "fields", "type", "index", "query", "class", "start", "end", "db", "text" );
 		
 		foreach ( $args as $arg ) {
 			$arg_clean = trim( $frame->expand( $arg ) );
@@ -51,7 +51,7 @@ class CouchDB_Query {
 		$out->addModules( 'ext.CouchDB_Query' );
 
 		$returnhtml = "<div class='couchdb-query-table' data-text='".$attrs["text"]."' data-total=0 data-skip=0 data-class='".$attrs["class"]."' data-db='".$attrs["db"]."' ".$startstr.$endstr;
-		$returnhtml.= " data-limit='".$attrs["limit"]."' data-header='".$attrs["header"]."' data-smw='".$attrs["smw"]."' data-query='".$attrs["query"]."' data-index='".$attrs["index"]."' data-type='".$attrs["type"]."'></div>";
+		$returnhtml.= " data-limit='".$attrs["limit"]."' data-header='".$attrs["header"]."' data-fields='".$attrs["fields"]."' data-query='".$attrs["query"]."' data-index='".$attrs["index"]."' data-type='".$attrs["type"]."'></div>";
 
 		return array( $returnhtml, 'noparse' => true, 'isHTML' => true );
 
