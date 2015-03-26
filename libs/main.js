@@ -124,10 +124,14 @@
 						if ( data[type].count ) {
 							$(div).data('total', data[type].count);
 
-							var prev = ""; var next = "";
+							var prev = ""; var next = ""; var count = "";
 							$(div).find("table").remove();
 							$(div).find(".bar > span").remove();
-								
+
+							if ( data[type].count > 0 ) {
+								count = "<span class='count'>" + data[type].count + "</span>";
+							}
+
 							if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
 								next = "<span class='next'>Next</span>";
 							}
@@ -135,7 +139,7 @@
 								prev = "<span class='prev'>Previous</span>";
 							}
 
-							$(div).find(".bar").first().append(prev+next);
+							$(div).find(".bar").first().append(count+prev+next);
 
 							if ( data[type].results.length > 0 ) {
 								var table = generateResultsTable( data[type].results, tableclass, header, fields );
