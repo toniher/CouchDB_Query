@@ -66,6 +66,8 @@
 			var type = $(div).data('type');
 			var skip = $(div).data('skip');
 			var db = $(div).data('db');
+			var text = $(div).data('text');
+
 	
 			// Stricty necessary
 			if ( type !== "" && index !== "" && db !== "" ) {
@@ -83,12 +85,12 @@
 				}
 				
 				if ( type.indexOf("lucene") > -1 ) {
-					params["q"] = query;
+					params["q"] = subsTextQuery( query, text );
 				} else {
 					if ( query.indexOf("[") > -1 ){
-						params["keys"] = query;
+						params["keys"] = subsTextQuery( query, text );
 					} else {
-						params["key"] = query;
+						params["key"] = subsTextQuery( query, text );
 					}
 				}
 	
@@ -163,6 +165,15 @@
 				});
 			}
 		});
+	}
+
+	function subsTextQuery( query, text ) {
+
+		if ( text ) {
+			query = query.replace( "$1", text, query );
+		}
+
+		return query;
 	}
 	
 	function generateResultsTable( results, tableclass, header, fields ) {
