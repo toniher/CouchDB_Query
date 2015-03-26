@@ -115,7 +115,7 @@
 				// Let's put bar
 				var bar = $(div).find(".bar").length;
 				if ( bar === 0 ) {
-					var input = "<input name='query' type='text' size=10>";
+					var input = "<input name='query' type='text' size=25>";
 					$(div).append("<p class='bar'>"+input+"</p>");
 				}
 
