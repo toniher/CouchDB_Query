@@ -25,7 +25,8 @@
 	
 				$(div).data('text', inputsave );
 				if ( inputsave.length > 2 ) {
-	
+					$(div).data('total', 0 );
+					$(div).data('skip', 0 );
 					iterateTable();
 				}
 			}
