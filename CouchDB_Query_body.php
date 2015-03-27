@@ -57,5 +57,21 @@ class CouchDB_Query {
 
 	}
 
+	/**
+	* @param $parser Parser
+	* @param $frame PPFrame
+	* @param $args array
+	* @return string
+	*/
+
+	public static function process_CouchDB_Query_field( $parser, $frame, $args ) {
+
+		$returnhtml = "";
+
+		// Return HTML
+		return array( $returnhtml, 'noparse' => true, 'isHTML' => true );
+
+	}
+
 }
 
