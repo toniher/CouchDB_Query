@@ -61,7 +61,6 @@
 		iterateTable();
 	});
 
-	
 	function iterateTable() {
 
 		$( ".couchdb-query-table" ).each( function( i ) {
@@ -77,11 +76,22 @@
 			var skip = $(div).data('skip');
 			var db = $(div).data('db');
 			var text = $(div).data('text');
+			var extra = $(div).data('extra');
 
 			// Stricty necessary
 			if ( type !== "" && index !== "" && db !== "" ) {
 		
 				var params = {};
+
+				// Let's put bar
+				var bar = $(div).find(".bar").length;
+				if ( bar === 0 ) {
+					var input = "<input name='query' type='text' size=25>";
+					var extraFields = "<div class='extra'></div>";
+					$(div).append("<div class='bar'>"+input+extraFields+"</div>");
+					processExtraFields( div, extra );
+				}
+
 				params["index"] = index;
 				params["db"] = db;
 				params["q"] = "";
@@ -95,6 +105,11 @@
 				
 				if ( type.indexOf("lucene") > -1 ) {
 					params["q"] = subsTextQuery( query, text );
+
+					if ( extra ) {
+						var extraq = retrieveExtraFields( extra );
+					}
+
 				} else {
 					if ( query.indexOf("[") > -1 ){
 						params["keys"] = subsTextQuery( query, text );
@@ -115,18 +130,10 @@
 				params.action = type;
 				params.format = "json";
 				
-							
 				var fieldse = fieldsp.split(",");
 				var fields = [];
 				for ( var s = 0; s < fieldse.length; s = s + 1 ) {
 					fields.push( fieldse[s].trim() );
-				}
-				
-				// Let's put bar
-				var bar = $(div).find(".bar").length;
-				if ( bar === 0 ) {
-					var input = "<input name='query' type='text' size=25>";
-					$(div).append("<p class='bar'>"+input+"</p>");
 				}
 
 				if ( params['q'].search(/\$\d/gi) < 1 ) {
@@ -187,7 +194,20 @@
 
 		return query;
 	}
-	
+
+	function processExtraFields( div, extra ) {
+
+		if ( extra ) {
+			if ( div ) {
+				$(div).find(".extra").append("More stuff to add");
+			}
+		}
+	}
+
+	function retrieveExtraFields( extra ) {
+
+	}
+
 	function generateResultsTable( results, tableclass, header, fields ) {
 	
 		var table = "<table class='" + tableclass + "'>";
