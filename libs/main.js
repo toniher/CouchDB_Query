@@ -221,19 +221,28 @@
 
 			var tag = $(field).data('tag');
 
-			var typestr = "";
+			var typestr = ""; var querystr = "";
 			if ( $(field).data('type') ) {
 				typestr = " type=\""+$(field).data('type')+"\"";
 			}
+			if ( $(field).data('query') ) {
+				querystr = " data-query=\""+$(field).data('query')+"\"";
+			}
 
-			out = "<"+tag+typestr+">";
+			out = "<"+tag+typestr+querystr+" class='couchdb-query-input'>";
 
 			if ( $(field).data('values') ) {
-				//code
-				
-			} else {
+				var values = $(field).data('values').split(",");
+				for ( var v = 0; v < values.length; v = v + 1 ) {
+					out = out + "<option>"+values[v]+"</option>";
+				}
+
+				if ( values.length > 0 ) {
+					out = out + "</"+tag+">";
+				}
 				
 			}
+
 		}
 
 		return out;
