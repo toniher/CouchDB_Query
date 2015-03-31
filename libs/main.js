@@ -108,7 +108,9 @@
 					params["q"] = subsTextQuery( query, text );
 
 					if ( extra ) {
-						var extraq = retrieveExtraFields( extra );
+						var extraq = "";
+						extraq = retrieveExtraFields( div );
+						params["q"] = params["q"] + extraq;
 					}
 
 				} else {
@@ -248,8 +250,21 @@
 		return out;
 	}
 
-	function retrieveExtraFields( extra ) {
+	function retrieveExtraFields( div ) {
 
+		var extraq = "";
+		$(div).find(".couchdb-query-input").each( function(i) {
+			if ( $(this).data('query') ) {
+				var val = $(this).val();
+				if ( val && val !== '' ) {
+					var subst = subsTextQuery( $(this).data('query'), val );
+					extraq = extraq + val;
+				}
+				
+			}
+		});
+
+		return extraq;
 	}
 
 	function generateResultsTable( results, tableclass, header, fields ) {
