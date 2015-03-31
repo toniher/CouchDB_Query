@@ -1,3 +1,4 @@
+/* jshint strict:true, browser:true */
 /** Inspect all table instances **/
 ( function( $, mw ) {
 
@@ -37,8 +38,8 @@
 	$( ".couchdb-query-table" ).on( "click", ".bar > .next", function() {
 
 		var div = $( this ).parents(".couchdb-query-table").first();
-		var limit = parseInt( $(div).data('limit') );
-		var skip = parseInt( $(div).data('skip') );
+		var limit = parseInt( $(div).data('limit'), 10 );
+		var skip = parseInt( $(div).data('skip'), 10 );
 
 		$(div).data('skip', skip + limit );
 
@@ -48,8 +49,8 @@
 	$( ".couchdb-query-table" ).on( "click", ".prev", function() {
 
 		var div = $( this ).parents(".couchdb-query-table").first();
-		var limit = parseInt( $(div).data('limit') );
-		var skip = parseInt( $(div).data('skip') );
+		var limit = parseInt( $(div).data('limit'), 10 );
+		var skip = parseInt( $(div).data('skip'), 10 );
 
 		var newskip = skip - limit;
 		if ( newskip < 0 ) {
@@ -138,7 +139,7 @@
 
 				if ( params['q'].search(/\$\d/gi) < 1 ) {
 
-					var posting = $.get( wgScriptPath + "/api.php", params );
+					var posting = $.get( mw.config.wgScriptPath + "/api.php", params );
 					posting.done(function( data ) {
 						if ( data[type].status === "OK" ) {
 							if ( data[type].count ) {
@@ -199,9 +200,43 @@
 
 		if ( extra ) {
 			if ( div ) {
-				$(div).find(".extra").append("More stuff to add");
+				var extras = extra.split(",");
+				
+				for ( var x = 0; x < extras.length; x = x + 1 ) {
+
+					var fieldDef = $( extras[x].trim() ).first(); // Let's assume only one
+					if ( fieldDef ) {
+						$(div).find(".extra").append( processExtraField( fieldDef ) );
+					}
+				}
+				
 			}
 		}
+	}
+
+	function processExtraField ( field ) {
+
+		var out = "";
+		if ( $(field).data('tag') ) {
+
+			var tag = $(field).data('tag');
+
+			var typestr = "";
+			if ( $(field).data('type') ) {
+				typestr = " type=\""+$(field).data('type')+"\"";
+			}
+
+			out = "<"+tag+typestr+">";
+
+			if ( $(field).data('values') ) {
+				//code
+				
+			} else {
+				
+			}
+		}
+
+		return out;
 	}
 
 	function retrieveExtraFields( extra ) {
@@ -262,7 +297,7 @@
 			} else if ( field === '*link' ) {
 				if ( result.hasOwnProperty("pagename") ) {
 					pagename = result["pagename"];
-					var url = wgArticlePath.replace('$1', pagename );
+					var url = mw.config.wgArticlePath.replace('$1', pagename );
 					fieldTxt = "<a href='" + url +"'>" + pagename + "</a>";
 				}
 			} else if ( field === '*score' ) {
