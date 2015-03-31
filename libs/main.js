@@ -139,7 +139,7 @@
 
 				if ( params['q'].search(/\$\d/gi) < 1 ) {
 
-					var posting = $.get( mw.config.wgScriptPath + "/api.php", params );
+					var posting = $.get( wgScriptPath + "/api.php", params );
 					posting.done(function( data ) {
 						if ( data[type].status === "OK" ) {
 							if ( data[type].count ) {
@@ -306,7 +306,7 @@
 			} else if ( field === '*link' ) {
 				if ( result.hasOwnProperty("pagename") ) {
 					pagename = result["pagename"];
-					var url = mw.config.wgArticlePath.replace('$1', pagename );
+					var url = wgArticlePath.replace('$1', pagename );
 					fieldTxt = "<a href='" + url +"'>" + pagename + "</a>";
 				}
 			} else if ( field === '*score' ) {
