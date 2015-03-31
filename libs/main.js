@@ -349,8 +349,17 @@
 					fieldTxt = result["score"];
 				}
 			} else {
+				var pagelink = false;
+				if ( field.startsWith("~") ) {
+					field.replace( /^~/, "");
+					pagelink = true;
+				}
 				if ( result.hasOwnProperty("fields") && result["fields"].hasOwnProperty(field) ) {
 					fieldTxt = result["fields"][field];
+					if ( pagelink ) {
+						var url = wgArticlePath.replace('$1', fieldTxt );
+						fieldTxt = "<a href='" + url +"'>" + fieldTxt + "</a>";
+					}
 				}
 			}
 			prop = " data-prop='"+field+"' ";
