@@ -62,6 +62,12 @@
 		iterateTable();
 	});
 
+	$( ".couchdb-query-table" ).on( "change click keyup input paste", ".couchdb-query-input", function() {
+		/** Trigger change **/
+		iterateTable();
+	});
+
+
 	function iterateTable() {
 
 		$( ".couchdb-query-table" ).each( function( i ) {
