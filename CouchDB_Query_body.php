@@ -24,6 +24,8 @@ class CouchDB_Query {
 		$attrs["extra"] = "";
 		$attrs["class"] = "wikitable sortable jquery-tablesorter";
 		$attrs["db"] = $GLOBALS["wgDBname"]; //Default DB
+		$attrs["default"] = "";
+
 		$startstr = "";
 		$endstr = "";
 
