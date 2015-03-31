@@ -75,9 +75,10 @@ class CouchDB_Query {
 		$attrs["values"] = "";
 		$attrs["class"] = "";
 		$attrs["id"] = "";
+		$attrs["default"] = "";
 
 
-		$attrs_ref = array( "tag", "type", "query", "values", "class", "id" );
+		$attrs_ref = array( "tag", "type", "query", "values", "class", "id", "default" );
 
 		foreach ( $args as $arg ) {
 			$arg_clean = trim( $frame->expand( $arg ) );
@@ -91,7 +92,7 @@ class CouchDB_Query {
 			}
 		}
 
-		$returnhtml = "<div class='couchdb-query-field' data-tag='".$attrs["tag"]."' data-type='".$attrs["type"]."' data-values='".$attrs["values"]."' data-query='".$attrs["query"]."' class='".$attrs["class"]."' id='".$attrs["id"]."'></div>";
+		$returnhtml = "<div class='couchdb-query-field' data-default='".$attrs["default"]."' data-tag='".$attrs["tag"]."' data-type='".$attrs["type"]."' data-values='".$attrs["values"]."' data-query='".$attrs["query"]."' class='".$attrs["class"]."' id='".$attrs["id"]."'></div>";
 
 		// Return HTML
 		return array( $returnhtml, 'noparse' => true, 'isHTML' => true );
