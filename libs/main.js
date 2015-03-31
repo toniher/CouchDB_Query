@@ -258,7 +258,7 @@
 				var val = $(this).val();
 				if ( val && val !== '' ) {
 					var subst = subsTextQuery( $(this).data('query'), val );
-					extraq = extraq + val;
+					extraq = extraq + " " + subst;
 				}
 				
 			}
