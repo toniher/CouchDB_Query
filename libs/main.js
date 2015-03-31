@@ -192,6 +192,9 @@
 	function subsTextQuery( query, text ) {
 
 		if ( text ) {
+			// First escape :
+			text = text.replace( /:/g, "\\:" );
+			// Then actual replacement
 			query = query.replace( /\$1/g, text );
 		}
 
