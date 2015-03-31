@@ -351,7 +351,7 @@
 			} else {
 				var pagelink = false;
 				if ( field.startsWith("~") ) {
-					field.replace( /^~/, "");
+					field = field.replace( /^~/, "");
 					pagelink = true;
 				}
 				if ( result.hasOwnProperty("fields") && result["fields"].hasOwnProperty(field) ) {
