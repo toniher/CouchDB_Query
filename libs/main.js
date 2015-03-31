@@ -84,6 +84,7 @@
 			var db = $(div).data('db');
 			var text = $(div).data('text');
 			var extra = $(div).data('extra');
+			var defaultval = $(div).data('default');
 
 			// Stricty necessary
 			if ( type !== "" && index !== "" && db !== "" ) {
@@ -93,7 +94,11 @@
 				// Let's put bar
 				var bar = $(div).find(".bar").length;
 				if ( bar === 0 ) {
-					var input = "<input name='query' type='text' size=25>";
+					var inputval="";
+					if ( defaultval ) {
+						inputval = " value=" + defaultval;
+					}
+					var input = "<input name='query' type='text' size=25"+inputval+">";
 					var extraFields = "<div class='extra'></div>";
 					$(div).append("<div class='bar'>"+input+extraFields+"</div>");
 					processExtraFields( div, extra );
