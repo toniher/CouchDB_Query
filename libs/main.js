@@ -242,18 +242,25 @@
 
 			out = "<"+tag+typestr+querystr+" class='couchdb-query-input'>";
 
+			var selected = "";
+			if ( $(field).data('default') ) {
+				selected = $(field).data('default');
+			}
+
 			if ( $(field).data('values') ) {
 				var values = $(field).data('values').split(",");
 				for ( var v = 0; v < values.length; v = v + 1 ) {
-					out = out + "<option>"+values[v]+"</option>";
+					var selectedstr = "";
+					if ( selected == values[v] ) {
+						selectedstr = " selected=selected";
+					}
+					out = out + "<option"+selectedstr+">"+values[v]+"</option>";
 				}
 
 				if ( values.length > 0 ) {
 					out = out + "</"+tag+">";
 				}
-				
 			}
-
 		}
 
 		return out;
