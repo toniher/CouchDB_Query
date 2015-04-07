@@ -202,13 +202,26 @@
 	function subsTextQuery( query, text ) {
 
 		if ( text ) {
-			// First escape :
-			text = text.replace( /:/g, "\\:" );
-			// Then actual replacement
-			query = query.replace( /\$1/g, text );
+			if ( query.startsWith('javascript:') ) {
+				// code for processing javascript
+				var jsfunc = query;
+				jsfunc.replace("javascript:", "");
+				query = window[jsfunc](text);
+			} else {
+				// First escape :
+				text = text.replace( /:/g, "\\:" );
+				// Then actual replacement
+				query = query.replace( /\$1/g, text );
+			}
 		}
 
 		return query;
+	}
+
+	function jsfunc( text ) {
+
+		console.log( "test" );
+		return "Test";
 	}
 
 	function processExtraFields( div, extra ) {
