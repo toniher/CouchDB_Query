@@ -205,8 +205,8 @@
 			if ( query.startsWith('javascript:') ) {
 				// code for processing javascript
 				var jsfunc = query;
-				jsfunc.replace("javascript:", "");
-				query = window[jsfunc](text);
+				jsfunc = jsfunc.replace("javascript:", "");
+				query = couchjsfunc.test( text );
 			} else {
 				// First escape :
 				text = text.replace( /:/g, "\\:" );
@@ -216,12 +216,6 @@
 		}
 
 		return query;
-	}
-
-	function jsfunc( text ) {
-
-		console.log( "test" );
-		return "Test";
 	}
 
 	function processExtraFields( div, extra ) {
@@ -456,3 +450,14 @@
 
 } )( jQuery, mediaWiki );
 
+
+
+(function( couchjsfunc, $, undefined ) {
+
+
+    couchjsfunc.test = function( text ) {
+        console.log( "Test" );
+		return "test";
+    };
+ 
+}( window.couchjsfunc = window.couchjsfunc || {}, jQuery ));
