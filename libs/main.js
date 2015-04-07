@@ -206,7 +206,8 @@
 				// code for processing javascript
 				var jsfunc = query;
 				jsfunc = jsfunc.replace("javascript:", "");
-				query = couchjsfunc.test( text );
+				query = window["couchjsfunc"][jsfunc](text);
+				console.log( query );
 			} else {
 				// First escape :
 				text = text.replace( /:/g, "\\:" );
@@ -456,7 +457,6 @@
 
 
     couchjsfunc.test = function( text ) {
-        console.log( "Test" );
 		return "test";
     };
  
