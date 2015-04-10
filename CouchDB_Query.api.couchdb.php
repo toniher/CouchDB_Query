@@ -47,6 +47,17 @@ class ApiCouchDB_Query extends ApiBase {
 				}
 			}
 
+			// Handle fields
+			if ( array_key_exists( "fields", $params ) ) {
+				$newrow["fields"] = array();
+				$fieldarr = explode( ",", $params["fields"] );
+				foreach ( $fieldarr as $field ) {
+					if ( property_exists( $row->value , $field ) ) {
+						$newrow["fields"][$field] = $row->value->$field;
+					}
+				}
+			}
+
 			array_push( $rows, $newrow );
 
 		}
@@ -95,6 +106,10 @@ class ApiCouchDB_Query extends ApiBase {
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => false
 			),
+			'fields' => array(
+				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_REQUIRED => false
+			),
 			'limit' => array(
 				ApiBase::PARAM_TYPE => 'integer',
 				ApiBase::PARAM_REQUIRED => false
@@ -119,6 +134,7 @@ class ApiCouchDB_Query extends ApiBase {
 			'keys' => 'list of keys to be searched',
 			'startkey' => 'Starting key',
 			'endkey' => 'Ending key',
+			'fields' => 'Fields to show',
 			'limit' => 'Limit of number of entries',
 			'skip' => 'Entries skipped'
 		);
