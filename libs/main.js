@@ -207,7 +207,6 @@
 				var jsfunc = query;
 				jsfunc = jsfunc.replace("javascript:", "");
 				query = window["couchjsfunc"][jsfunc](text);
-				console.log( query );
 			} else {
 				// First escape :
 				text = text.replace( /:/g, "\\:" );
