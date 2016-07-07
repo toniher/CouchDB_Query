@@ -54,6 +54,13 @@ class ApiCouchDB_Query extends ApiBase {
 				foreach ( $fieldarr as $field ) {
 					if ( property_exists( $row->value , $field ) ) {
 						$newrow["fields"][$field] = $row->value->$field;
+					} else {
+						// Check in document
+						if ( property_exists( $row->value , "doc" ) ) {
+							if ( property_exists( $row->value->doc , $field ) ) {
+								$newrow["fields"][$field] = $row->value->doc->$field;
+							}
+						}
 					}
 				}
 			}
