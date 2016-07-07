@@ -374,7 +374,7 @@
 					pagelink = true;
 				}
 				if ( field.startsWith("#") ) {
-					field = field.replace( /^~/, "");
+					field = field.replace( /^#/, "");
 					cleanpagelink = true;
 				}
 				if ( result.hasOwnProperty("fields") && result["fields"].hasOwnProperty(field) ) {
