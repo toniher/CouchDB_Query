@@ -351,15 +351,31 @@
 					var url = wgArticlePath.replace('$1', pagename );
 					fieldTxt = "<a href='" + url +"'>" + pagename + "</a>";
 				}
-			} else if ( field === '*score' ) {
+			} else if ( field === '#link' ) {
+				if ( result.hasOwnProperty("pagename") ) {
+					pagename = result["pagename"];
+					var url = wgArticlePath.replace('$1', pagename );
+
+					pagename_html = pagename.replace(/\@\S+/, "");
+					pagename_html = pagename_html.replace(/^\S+\:/, "");
+
+					fieldTxt = "<a href='" + url +"'>" + pagename_html + "</a>";
+				}
+			}
+			else if ( field === '*score' ) {
 				if ( result.hasOwnProperty("score") ) {
 					fieldTxt = result["score"];
 				}
 			} else {
 				var pagelink = false;
+				var cleanpagelink = false;
 				if ( field.startsWith("~") ) {
 					field = field.replace( /^~/, "");
 					pagelink = true;
+				}
+				if ( field.startsWith("#") ) {
+					field = field.replace( /^~/, "");
+					cleanpagelink = true;
 				}
 				if ( result.hasOwnProperty("fields") && result["fields"].hasOwnProperty(field) ) {
 					fieldTxt = result["fields"][field];
@@ -367,6 +383,14 @@
 						var url = wgArticlePath.replace('$1', fieldTxt );
 						fieldTxt = "<a href='" + url +"'>" + fieldTxt + "</a>";
 					}
+					if ( cleanpagelink ) {
+						var url = wgArticlePath.replace('$1', fieldTxt );
+
+						fieldTxt = fieldTxt.replace(/\@\S+/, "");
+						fieldTxt = fieldTxt.replace(/^\S+\:/, "");
+
+						fieldTxt = "<a href='" + url +"'>" + fieldTxt + "</a>";
+					}		
 				}
 			}
 			prop = " data-prop='"+field+"' ";
