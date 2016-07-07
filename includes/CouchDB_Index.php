@@ -48,7 +48,7 @@ class CouchDB_Index {
 									$host =  $couchdb_params["host"];
 								}
 
-								$extra_params = array( "key", "keys", "startkey", "endkey", "limit", "skip", "include_docs" );
+								$extra_params = array( "key", "keys", "startkey", "endkey", "limit", "skip" );
 
 								$add_params = array();
 
@@ -60,9 +60,16 @@ class CouchDB_Index {
 									}
 								}
 
-								$url = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&reduce=false";
+								$include = "";
+								if ( array_key_exists( "include_docs", $params ) ) {
+									$include = "&include_docs=true";
+								}
+
+								$url = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&reduce=false".$include;
 								$url_reduce = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&group=true";
+
 								$url = str_replace( " ", "%20", $url );
+								$url_reduce = str_replace( " ", "%20", $url_reduce );
 
 								$json = file_get_contents( $url );
 								$json_reduce = file_get_contents( $url_reduce );
