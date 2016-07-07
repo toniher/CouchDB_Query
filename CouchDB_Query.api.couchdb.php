@@ -56,9 +56,9 @@ class ApiCouchDB_Query extends ApiBase {
 						$newrow["fields"][$field] = $row->value->$field;
 					} else {
 						// Check in document
-						if ( property_exists( $row->value , "doc" ) ) {
-							if ( property_exists( $row->value->doc , $field ) ) {
-								$newrow["fields"][$field] = $row->value->doc->$field;
+						if ( property_exists( $row , "doc" ) ) {
+							if ( property_exists( $row->doc , $field ) ) {
+								$newrow["fields"][$field] = $row->doc->$field;
 							}
 						}
 					}
