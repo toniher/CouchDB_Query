@@ -117,7 +117,11 @@ class ApiCouchDB_Query extends ApiBase {
 			'skip' => array(
 				ApiBase::PARAM_TYPE => 'integer',
 				ApiBase::PARAM_REQUIRED => false
-			)
+			),
+			'include_docs' => array(
+				ApiBase::PARAM_TYPE => 'boolean',
+				ApiBase::PARAM_REQUIRED => false
+			),
 		);
 	}
 
@@ -136,7 +140,8 @@ class ApiCouchDB_Query extends ApiBase {
 			'endkey' => 'Ending key',
 			'fields' => 'Fields to show',
 			'limit' => 'Limit of number of entries',
-			'skip' => 'Entries skipped'
+			'skip' => 'Entries skipped',
+			'include_docs' => 'Result docs included'
 		);
 	}
 

@@ -48,7 +48,7 @@ class CouchDB_Index {
 									$host =  $couchdb_params["host"];
 								}
 
-								$extra_params = array( "key", "keys", "startkey", "endkey", "limit", "skip" );
+								$extra_params = array( "key", "keys", "startkey", "endkey", "limit", "skip", "include_docs" );
 
 								$add_params = array();
 
