@@ -306,6 +306,7 @@
 		table = table + "<tbody>";
 		
 		for ( var r = 0; r < results.length; r = r + 1 ) {
+
 			var rowstr = generateRowTable( results[r], fields, "td" );
 			table = table + "<tr>" + rowstr + "</tr>";
 		}

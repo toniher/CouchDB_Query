@@ -32,6 +32,18 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 
 				array_push( $rows, $newrow );
 			} else {
+
+				// Hack for strange cases :'(
+				$db = $params['db'];
+				$index = $params['index'];
+				global $wgCouchDB_Query;
+
+				if ( $wgCouchDB_Query["map"][$db][$index]["pagename"] ) {
+					$pagename = $GLOBALS['wgCouchDB_Query']["map"][$params["db"]][$params["index"]]["pagename"];
+
+					$newrow["pagename"] = $row->fields->$pagename;
+				}
+
 				$newrow["id"] = $rowid;
 				$newrow["score"] = $row->score;
 				$newrow["fields"] = $row->fields;
