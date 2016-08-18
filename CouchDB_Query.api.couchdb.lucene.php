@@ -7,7 +7,7 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 
 		$outcome = CouchDB_Lucene::processIndex( $params );
 		// Below would be JSON
-	
+
 		$count = $outcome->total_rows;
 		$rows = array();
 
@@ -15,7 +15,7 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 		$result->addValue( null, $this->getModuleName(), array ( 'status' => "OK", 'count' => $count ) );
 
 		foreach ( $outcome->rows as $row ) {
-			//var_dump( $row );
+			
 			$rowid = $row->id;
 			// We assume here that ID is linked
 			$page = WikiPage::newFromId( $rowid );
@@ -28,6 +28,12 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 				$newrow["id"] = $rowid;
 				$newrow["score"] = $row->score;
 				$newrow["pagename"] = $fullpagename;
+				$newrow["fields"] = $row->fields;
+
+				array_push( $rows, $newrow );
+			} else {
+				$newrow["id"] = $rowid;
+				$newrow["score"] = $row->score;
 				$newrow["fields"] = $row->fields;
 
 				array_push( $rows, $newrow );
