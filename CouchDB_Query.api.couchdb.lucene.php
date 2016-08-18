@@ -39,9 +39,8 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 		foreach ( $rows as $row ) {
 
 			$fields = array();
-			foreach ( $row["fields"] as $field ) {
-				$field->setIndexedTagName( $row, 'field' );
-				$fields[] = $field;
+			foreach ( $row["fields"] as $fieldkey => $fieldval ) {
+			
 			}
 
 			$result->setIndexedTagName( $row, 'result' );
