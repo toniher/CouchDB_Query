@@ -22,6 +22,7 @@ class CouchDB_Query {
 		$attrs["index"] = "";
 		$attrs["query"] = "";
 		$attrs["extra"] = "";
+		$attrs["prefix"] = "";
 		$attrs["class"] = "wikitable sortable jquery-tablesorter";
 		$attrs["db"] = $GLOBALS["wgDBname"]; //Default DB
 		$attrs["default"] = "";
@@ -29,7 +30,7 @@ class CouchDB_Query {
 		$startstr = "";
 		$endstr = "";
 
-		$attrs_ref = array( "limit", "header", "fields", "type", "index", "query", "class", "start", "end", "db", "text", "extra" );
+		$attrs_ref = array( "limit", "header", "fields", "type", "index", "query", "class", "start", "end", "db", "text", "extra", "prefix" );
 		
 		foreach ( $args as $arg ) {
 			$arg_clean = trim( $frame->expand( $arg ) );
@@ -54,7 +55,7 @@ class CouchDB_Query {
 		$out->addModules( 'ext.CouchDB_Query' );
 
 		$returnhtml = "<div class='couchdb-query-table' data-text='".$attrs["text"]."' data-extra='".$attrs["extra"]."' data-total=0 data-skip=0 data-class='".$attrs["class"]."' data-db='".$attrs["db"]."' ".$startstr.$endstr;
-		$returnhtml.= " data-limit='".$attrs["limit"]."' data-header='".$attrs["header"]."' data-fields='".$attrs["fields"]."' data-query='".$attrs["query"]."' data-index='".$attrs["index"]."' data-type='".$attrs["type"]."'></div>";
+		$returnhtml.= " data-limit='".$attrs["limit"]."' data-header='".$attrs["header"]."' data-fields='".$attrs["fields"]."' data-query='".$attrs["query"]."' data-index='".$attrs["index"]."' data-prefix='".$attrs["prefix"]."' data-type='".$attrs["type"]."'></div>";
 
 		return array( $returnhtml, 'noparse' => true, 'isHTML' => true );
 

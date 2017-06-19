@@ -8,7 +8,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 $GLOBALS['wgExtensionCredits']['parserhook'][] = array(
 	'path' => __FILE__,
 	'name' => 'CouchDB_Query',
-	'version' => '0.1',
+	'version' => '0.1.1',
 	'url' => 'https://www.mediawiki.org/wiki/User:Toniher',
 	'author' => array( 'Toniher' ),
 	'descriptionmsg' => 'CouchDB_Query-desc',

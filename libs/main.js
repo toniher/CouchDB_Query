@@ -84,6 +84,8 @@
 			var db = $(div).data('db');
 			var text = $(div).data('text');
 			var extra = $(div).data('extra');
+			
+			var prefix = processPrefix( $(div).data('prefix') );
 
 			// Stricty necessary
 			if ( type !== "" && index !== "" && db !== "" ) {
@@ -175,7 +177,7 @@
 								$(div).find(".bar").first().append(count+prev+next);
 	
 								if ( data[type].results.length > 0 ) {
-									var table = generateResultsTable( data[type].results, tableclass, header, fields );
+									var table = generateResultsTable( data[type].results, tableclass, header, fields, prefix );
 									$(div).append( table );
 									// generateSMWTable( $(div).children("table"), fields );
 									$(div).children("table").tablesorter(); //Let's make table sortable
@@ -216,6 +218,29 @@
 		}
 
 		return query;
+	}
+	
+	function processPrefix( prefixstr ) {
+		
+		var prefix = {};
+		
+		if ( prefixstr ) {
+			
+			var prefixels = prefixstr.split(",");
+			
+			for ( var p=0; p < prefixels.length; p = p + 1 ) {
+			
+					var parts = prefixels[p].split(":");
+					
+					if ( parts.length === 2 ) {
+						prefix[parts[0]] = parts[1];
+					}
+			}
+			
+		}
+
+		return prefix;
+		
 	}
 
 	function processExtraFields( div, extra ) {
@@ -294,7 +319,7 @@
 		return extraq;
 	}
 
-	function generateResultsTable( results, tableclass, header, fields ) {
+	function generateResultsTable( results, tableclass, header, fields, prefix ) {
 	
 		var table = "<table class='" + tableclass + "'>";
 		table = table + "<thead><tr>";
@@ -307,7 +332,7 @@
 		
 		for ( var r = 0; r < results.length; r = r + 1 ) {
 
-			var rowstr = generateRowTable( results[r], fields, "td" );
+			var rowstr = generateRowTable( results[r], fields, "td", prefix );
 			table = table + "<tr>" + rowstr + "</tr>";
 		}
 		
@@ -330,7 +355,7 @@
 		return str;
 	}
 	
-	function generateRowTable( result, fields, tag ){
+	function generateRowTable( result, fields, tag, prefix ){
 		var str = "";
 		
 		for ( var i = 0; i < fields.length; i = i + 1 ) {
@@ -380,6 +405,13 @@
 				}
 				if ( result.hasOwnProperty("fields") && result["fields"].hasOwnProperty(field) ) {
 					fieldTxt = result["fields"][field];
+					
+					// Detect here if in prefix. If so, append
+					if ( prefix.hasOwnProperty( field ) ) {
+						fieldTxt = prefix[field]+":"+fieldTxt;
+					}
+					
+					
 					if ( pagelink ) {
 						var url = wgArticlePath.replace('$1', fieldTxt );
 						fieldTxt = "<a href='" + url +"'>" + fieldTxt + "</a>";
