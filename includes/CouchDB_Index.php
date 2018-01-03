@@ -31,10 +31,10 @@ class CouchDB_Index {
 									$auth = $couchdb_params["username"].":".$couchdb_params["password"]."@";
 								}
 
-								$protocol = "http";
-								$port = "";
+								// Let's force empty. If not explicitly put, retrieved from queries
+								$protocol = "";
 								$portstr = "";
-								$host = "localhost";
+								$host = "";
 
 								if ( array_key_exists( "protocol", $couchdb_params ) ) {
 									$protocol =  $couchdb_params["protocol"];
@@ -65,9 +65,15 @@ class CouchDB_Index {
 									$include = "&include_docs=true";
 								}
 
-								$url = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&reduce=false".$include;
-								$url_reduce = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&group=true";
-
+								$url = $auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&reduce=false".$include;
+								$url_reduce = $auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&group=true";
+				
+								if ( ! empty( $protocol ) ) {
+									
+									$url = $protocol."://". $url;
+									$url_reduce = $protocol."://". $url_reduce;
+								}
+								
 								$url = str_replace( " ", "%20", $url );
 								$url_reduce = str_replace( " ", "%20", $url_reduce );
 

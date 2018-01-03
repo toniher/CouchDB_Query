@@ -31,10 +31,10 @@ class CouchDB_Lucene {
 									$auth = $couchdb_params["username"].":".$couchdb_params["password"]."@";
 								}
 
-								$protocol = "http";
-								$port = "";
+								// Let's force empty. If not explicitly put, retrieved from queries
+								$protocol = "";
 								$portstr = "";
-								$host = "localhost";
+								$host = "";
 
 								if ( array_key_exists( "protocol", $couchdb_params ) ) {
 									$protocol =  $couchdb_params["protocol"];
@@ -60,7 +60,13 @@ class CouchDB_Lucene {
 									}
 								}
 
-								$url = $protocol."://".$auth.$host.$portstr.$urlquery."?".join( $add_params, "&" );
+								$url = $auth.$host.$portstr.$urlquery."?".join( $add_params, "&" );
+														
+								if ( ! empty( $protocol ) ) {
+									
+									$url = $protocol."://". $url;
+								}
+								
 								$url = str_replace( " ", "%20", $url );
 								$json = file_get_contents( $url );
 								$outcome = json_decode($json);
