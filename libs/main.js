@@ -153,7 +153,7 @@
 
 				if ( params['q'].search(/\$\d/gi) < 1 ) {
 
-					var posting = $.get( wgScriptPath + "/api.php", params );
+					var posting = $.get( mw.config.get( "wgScriptPath" ) + "/api.php", params );
 					posting.done(function( data ) {
 						if ( data[type].status === "OK" ) {
 							if ( data[type].count ) {
@@ -374,13 +374,13 @@
 			} else if ( field === '*link' ) {
 				if ( result.hasOwnProperty("pagename") ) {
 					pagename = result["pagename"];
-					var url = wgArticlePath.replace('$1', pagename );
+					var url = mw.config.get( "wgArticlePath" ).replace('$1', pagename );
 					fieldTxt = "<a href='" + url +"'>" + pagename + "</a>";
 				}
 			} else if ( field === '#link' ) {
 				if ( result.hasOwnProperty("pagename") ) {
 					pagename = result["pagename"];
-					var url = wgArticlePath.replace('$1', pagename );
+					var url = mw.config.get( "wgArticlePath" ).replace('$1', pagename );
 
 					pagename_html = pagename.replace(/\@\S+/, "");
 					pagename_html = pagename_html.replace(/^\S+\:/, "");
@@ -413,11 +413,11 @@
 					
 					
 					if ( pagelink ) {
-						var url = wgArticlePath.replace('$1', fieldTxt );
+						var url = mw.config.get( "wgArticlePath" ).replace('$1', fieldTxt );
 						fieldTxt = "<a href='" + url +"'>" + fieldTxt + "</a>";
 					}
 					if ( cleanpagelink ) {
-						var url = wgArticlePath.replace('$1', fieldTxt );
+						var url = mw.config.get( "wgArticlePath" ).replace('$1', fieldTxt );
 
 						fieldTxt = fieldTxt.replace(/\@\S+/, "");
 						fieldTxt = fieldTxt.replace(/^\S+\:/, "");
@@ -462,7 +462,7 @@
 					params.printouts = fieldsSMW.join("|");
 					params.format = "json"; // Let's put JSON
 					
-					var posting = $.get( wgScriptPath + "/api.php", params );
+					var posting = $.get( mw.config.get( "wgScriptPath" ) + "/api.php", params );
 					posting.done(function( out ) {
 						if ( out && out.hasOwnProperty("query") ) {
 							if ( out["query"].hasOwnProperty("results") ) {
@@ -476,7 +476,7 @@
 													var finvalue = printouts[prop][0];
 													if ( typeof finvalue === 'object' ) {
 														finvalue = finvalue.fulltext;
-														var url = wgArticlePath.replace('$1', finvalue );
+														var url = mw.config.get( "wgArticlePath" ).replace('$1', finvalue );
 														$(tdvalue).append( "<a href='" + url +"'>" + finvalue + "</a>" );
 													} else {
 														$(tdvalue).text( finvalue );
