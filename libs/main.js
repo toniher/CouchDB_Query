@@ -408,7 +408,6 @@
 				}
 				if ( result.hasOwnProperty("fields") && result["fields"].hasOwnProperty(field) ) {
 					fieldTxt = result["fields"][field];
-					fieldTxt = fieldTxt.replace("#", "/")
 					
 					// Detect here if in prefix. If so, append
 					if ( prefix.hasOwnProperty( field ) ) {
@@ -416,6 +415,8 @@
 					}
 										
 					if ( pagelink ) {
+						fieldTxt = fieldTxt.replace("#", "/");
+
 						if ( prefixurl.hasOwnProperty( field ) ) {
 							url = prefixurl[field]+fieldTxt;
 						}  else {
@@ -425,6 +426,8 @@
 					}
 					if ( cleanpagelink ) {
 						
+						fieldTxt = fieldTxt.replace("#", "/");
+
 						if ( prefixurl.hasOwnProperty( field ) ) {
 							url = prefixurl[field]+fieldTxt;
 						} else {
