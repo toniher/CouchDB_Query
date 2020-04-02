@@ -30,7 +30,7 @@ class CouchDB_Query {
 		$startstr = "";
 		$endstr = "";
 
-		$attrs_ref = array( "limit", "header", "fields", "type", "index", "query", "class", "start", "end", "db", "text", "extra", "prefix" );
+		$attrs_ref = array( "limit", "header", "fields", "type", "index", "query", "class", "start", "end", "db", "text", "extra", "prefix", "prefixurl" );
 		
 		foreach ( $args as $arg ) {
 			$arg_clean = trim( $frame->expand( $arg ) );

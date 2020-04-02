@@ -86,6 +86,8 @@
 			var extra = $(div).data('extra');
 			
 			var prefix = processPrefix( $(div).data('prefix') );
+			var prefixurl = processPrefix( $(div).data('prefixurl') );
+
 
 			// Stricty necessary
 			if ( type !== "" && index !== "" && db !== "" ) {
@@ -177,7 +179,7 @@
 								$(div).find(".bar").first().append(count+prev+next);
 	
 								if ( data[type].results.length > 0 ) {
-									var table = generateResultsTable( data[type].results, tableclass, header, fields, prefix );
+									var table = generateResultsTable( data[type].results, tableclass, header, fields, prefix, prefixurl );
 									$(div).append( table );
 									// generateSMWTable( $(div).children("table"), fields );
 									$(div).children("table").tablesorter(); //Let's make table sortable
@@ -319,7 +321,7 @@
 		return extraq;
 	}
 
-	function generateResultsTable( results, tableclass, header, fields, prefix ) {
+	function generateResultsTable( results, tableclass, header, fields, prefix, prefixurl ) {
 	
 		var table = "<table class='" + tableclass + "'>";
 		table = table + "<thead><tr>";
@@ -332,7 +334,7 @@
 		
 		for ( var r = 0; r < results.length; r = r + 1 ) {
 
-			var rowstr = generateRowTable( results[r], fields, "td", prefix );
+			var rowstr = generateRowTable( results[r], fields, "td", prefix, prefixurl );
 			table = table + "<tr>" + rowstr + "</tr>";
 		}
 		
@@ -355,7 +357,7 @@
 		return str;
 	}
 	
-	function generateRowTable( result, fields, tag, prefix ){
+	function generateRowTable( result, fields, tag, prefix, prefixurl ){
 		var str = "";
 		
 		for ( var i = 0; i < fields.length; i = i + 1 ) {
@@ -364,6 +366,7 @@
 			var prop = "";
 			var pagename = null;
 			var fieldTxt = "";
+			var url = "#";
 
 			// Check reference part - OK for now
 			if ( field === '*' ) {
@@ -374,7 +377,7 @@
 			} else if ( field === '*link' ) {
 				if ( result.hasOwnProperty("pagename") ) {
 					pagename = result["pagename"];
-					var url = mw.config.get( "wgArticlePath" ).replace('$1', pagename );
+					url = mw.config.get( "wgArticlePath" ).replace('$1', pagename );
 					fieldTxt = "<a href='" + url +"'>" + pagename + "</a>";
 				}
 			} else if ( field === '#link' ) {
@@ -410,15 +413,23 @@
 					if ( prefix.hasOwnProperty( field ) ) {
 						fieldTxt = prefix[field]+":"+fieldTxt;
 					}
-					
-					
+										
 					if ( pagelink ) {
-						var url = mw.config.get( "wgArticlePath" ).replace('$1', fieldTxt );
+						if ( prefixurl.hasOwnProperty( field ) ) {
+							url = prefixurl[field]+fieldTxt;
+						}  else {
+							url = mw.config.get( "wgArticlePath" ).replace('$1', fieldTxt );
+						}
 						fieldTxt = "<a href='" + url +"'>" + fieldTxt + "</a>";
 					}
 					if ( cleanpagelink ) {
-						var url = mw.config.get( "wgArticlePath" ).replace('$1', fieldTxt );
-
+						
+						if ( prefixurl.hasOwnProperty( field ) ) {
+							url = prefixurl[field]+fieldTxt;
+						} else {
+							url = mw.config.get( "wgArticlePath" ).replace('$1', fieldTxt );
+						}
+						
 						fieldTxt = fieldTxt.replace(/\@\S+/, "");
 						fieldTxt = fieldTxt.replace(/^\S+\:/, "");
 
