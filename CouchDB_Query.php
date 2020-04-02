@@ -56,12 +56,12 @@ $GLOBALS['wgCouchDB_Query']["queries"]["db"]["coords"] = "/db/_design/search/_vi
 # API Stuff
 $wgAutoloadClasses['ApiCouchDB_Query'] = dirname( __FILE__ ). '/CouchDB_Query.api.couchdb.php';
 $wgAutoloadClasses['ApiCouchDB_Query_Lucene'] = dirname( __FILE__ ). '/CouchDB_Query.api.couchdb.lucene.php';
-$wgAutoloadClasses['ApiCouchDB_Query_Document'] = dirname( __FILE__ ). '/CouchDB_Query.api.couchdb.document.php';
+$wgAutoloadClasses['ApiCouchDB_Document'] = dirname( __FILE__ ). '/CouchDB_Query.api.couchdb.document.php';
 
 // api modules
 $wgAPIModules['couchdb-query'] = 'ApiCouchDB_Query';
 $wgAPIModules['couchdb-lucene-query'] = 'ApiCouchDB_Query_Lucene';
-$wgAPIModules['couchdb-document'] = 'ApiCouchDB_Query_Page';
+$wgAPIModules['couchdb-document'] = 'ApiCouchDB_Document';
 
 
 /**
