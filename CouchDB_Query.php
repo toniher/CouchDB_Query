@@ -17,7 +17,7 @@ $GLOBALS['wgExtensionCredits']['parserhook'][] = array(
 $GLOBALS['wgAutoloadClasses']['CouchDB_Query'] = __DIR__.'/CouchDB_Query_body.php';
 $GLOBALS['wgAutoloadClasses']['CouchDB_Lucene'] = __DIR__.'/includes/CouchDB_Lucene.php';
 $GLOBALS['wgAutoloadClasses']['CouchDB_Index'] = __DIR__.'/includes/CouchDB_Index.php';
-
+$GLOBALS['wgAutoloadClasses']['CouchDB_Document'] = __DIR__.'/includes/CouchDB_Document.php';
 
 $GLOBALS['wgMessagesDirs']['CouchDB_Query'] = __DIR__ . '/i18n';
 $GLOBALS['wgExtensionMessagesFiles']['CouchDB_Query'] = __DIR__ . '/CouchDB_Query.i18n.php';
@@ -56,9 +56,12 @@ $GLOBALS['wgCouchDB_Query']["queries"]["db"]["coords"] = "/db/_design/search/_vi
 # API Stuff
 $wgAutoloadClasses['ApiCouchDB_Query'] = dirname( __FILE__ ). '/CouchDB_Query.api.couchdb.php';
 $wgAutoloadClasses['ApiCouchDB_Query_Lucene'] = dirname( __FILE__ ). '/CouchDB_Query.api.couchdb.lucene.php';
+$wgAutoloadClasses['ApiCouchDB_Query_Document'] = dirname( __FILE__ ). '/CouchDB_Query.api.couchdb.document.php';
+
 // api modules
 $wgAPIModules['couchdb-query'] = 'ApiCouchDB_Query';
 $wgAPIModules['couchdb-lucene-query'] = 'ApiCouchDB_Query_Lucene';
+$wgAPIModules['couchdb-document'] = 'ApiCouchDB_Query_Page';
 
 
 /**
