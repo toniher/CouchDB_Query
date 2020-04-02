@@ -87,7 +87,8 @@
 			
 			var prefix = processPrefix( $(div).data('prefix') );
 			var prefixurl = processPrefix( $(div).data('prefixurl') );
-
+			var prefixcondurl = processPrefix( $(div).data('prefixcondurl') );
+			// TODO: To handle this
 
 			// Stricty necessary
 			if ( type !== "" && index !== "" && db !== "" ) {
