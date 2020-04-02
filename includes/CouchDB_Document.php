@@ -1,7 +1,7 @@
 <?php
 class CouchDB_Document {
 
-	public static function processDocment( $params ) {
+	public static function processDocument( $params ) {
 
 		$outcome = array();
 
