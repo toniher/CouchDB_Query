@@ -2,6 +2,8 @@ Extension for performing CouchDB queries within a MediaWiki instance.
 
 ### TODO
 
-* Add simple page query function
+* Refactor common functions
+* Simplify parameters
 * Document how this works
+
 
