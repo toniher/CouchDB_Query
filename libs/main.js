@@ -408,6 +408,7 @@
 				}
 				if ( result.hasOwnProperty("fields") && result["fields"].hasOwnProperty(field) ) {
 					fieldTxt = result["fields"][field];
+					fieldTxt = fieldTxt.replace("#", "/")
 					
 					// Detect here if in prefix. If so, append
 					if ( prefix.hasOwnProperty( field ) ) {
