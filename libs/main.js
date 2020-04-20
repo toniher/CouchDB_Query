@@ -87,7 +87,7 @@
 
 			var prefix = processPrefix( $(div).data('prefix') );
 			var prefixurl = processPrefix( $(div).data('prefixurl') );
-			var prefixcondurl = processPrefix( $(div).data('prefixcondurl') );
+			var prefixcondurl = $(div).data('prefixcondurl');
 
 			// Stricty necessary
 			if ( type !== "" && index !== "" && db !== "" ) {
@@ -359,9 +359,9 @@
 
 	function getPrefixCondUrl( prefixcondurl ) {
 
-		let prefixHash;
+		let prefixHash = {};
 
-		let parts = prefixcondurl.split( "," )
+		let parts = prefixcondurl.split( "," );
 
 		for( part of parts ) {
 
@@ -391,10 +391,6 @@
 							 prefixHash[target][cond] = {};
 						}
 
-						if ( ! prefixHash[target][cond].hasOwnProperty( val ) ) {
-							 prefixHash[target][cond][val] = {};
-						}
-
 						prefixHash[target][cond][val] = prefix;
 
 					}
@@ -422,26 +418,14 @@
 			}
 		}
 
-		let val;
-		for ( let v in assign[match] ) {
-
-			if ( assign[match].hasOwnProperty( v ) ) {
-
-				val = v;
-			}
-
-		}
-
 		for( let f in fields ) {
 
 			if ( f == match ) {
 
 				let occur = fields[f];
-
-				if ( occur == val ) {
-					prefix = assign[match][val];
+				if ( assign[match].hasOwnProperty( occur ) ) {
+					prefix = assign[match][occur];
 				}
-
 			}
 		}
 
