@@ -413,19 +413,19 @@
 	function assignUrlPrefix( assign, fields ){
 		let prefix = "";
 
-		let case;
+		let match;
 		for ( let c in assign ) {
 
 			if ( assign.hasOwnProperty( c ) ) {
 
-				case = c;
+				match = c;
 			}
 		}
 
 		let val;
-		for ( let v in assign[case] ) {
+		for ( let v in assign[match] ) {
 
-			if ( assign[case].hasOwnProperty( v ) ) {
+			if ( assign[match].hasOwnProperty( v ) ) {
 
 				val = v;
 			}
@@ -434,12 +434,12 @@
 
 		for( let f in fields ) {
 
-			if ( f == case ) {
+			if ( f == match ) {
 
 				let occur = fields[f];
 
 				if ( occur == val ) {
-					prefix = assign[case][val];
+					prefix = assign[match][val];
 				}
 
 			}
