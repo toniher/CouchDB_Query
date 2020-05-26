@@ -1,5 +1,5 @@
 <?php
-class ApiCouchDB_Query_Document extends ApiBase {
+class ApiCouchDB_Document extends ApiBase {
 
 	public function execute() {
 
@@ -7,30 +7,30 @@ class ApiCouchDB_Query_Document extends ApiBase {
 
 		$outcome = CouchDB_Document::processDocument( $params );
 		// Below would be JSON
-	
+
 		$count = 0;
 		$rows = [];
-		
+
 		if ( array_key_exists( "_id", $outcome ) ) {
-		
+
 			$count = 1;
-			
+
 			array_push( $rows, $outcome );
 		}
-		
+
 		$result = $this->getResult();
 		$result->addValue( null, $this->getModuleName(), array ( 'status' => "OK", 'count' => $count ) );
-		
+
 		$results = array();
 		foreach ( $rows as $row ) {
-			
+
 			$result->setIndexedTagName( $row, 'result' );
 			$results[] = $row;
 		}
-		
+
 		$result->setIndexedTagName( $results, 'result' );
 		$result->addValue( $this->getModuleName(), "results", $results );
-		
+
 		return true;
 
 	}
