@@ -8,11 +8,21 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 		$outcome = CouchDB_Lucene::processIndex( $params );
 		// Below would be JSON
 
-		$count = $outcome->total_rows;
+		$count = 0;
+		$bookmark = "";
+
+		if ( property_exists ( $outcome, "total_rows" ) ) {
+			$count = $outcome->total_rows;
+		}
+
+		if ( property_exists ( $outcome, "bookmark" ) ) {
+			$bookmark = $outcome->bookmark;
+		}
+
 		$rows = array();
 
 		$result = $this->getResult();
-		$result->addValue( null, $this->getModuleName(), array ( 'status' => "OK", 'count' => $count ) );
+		$result->addValue( null, $this->getModuleName(), array ( 'status' => "OK", 'count' => $count, 'bookmark' => $bookmark ) );
 
 		foreach ( $outcome->rows as $row ) {
 

@@ -167,6 +167,10 @@
 							if ( data[type].count ) {
 								$(div).data('total', data[type].count);
 
+								if ( data[type].bookmark ) {
+									$(div).data('bookmark', data[type].bookmark);
+								}
+
 								var prev = ""; var next = ""; var count = "";
 								$(div).find("table").remove();
 								$(div).find(".bar > span").remove();
@@ -175,9 +179,16 @@
 									count = "<span class='count'>" + data[type].count + "</span>";
 								}
 
-								if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
+								if ( data[type].bookmark && data[type].bookmark != "" ) {
 									next = "<span class='next'>Next</span>";
+								} else {
+
+									if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
+										next = "<span class='next'>Next</span>";
+									}
+
 								}
+								
 								if ( parseInt( skip, 10 ) > 0 ) {
 									prev = "<span class='prev'>Previous</span>";
 								}
