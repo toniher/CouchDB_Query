@@ -15,7 +15,7 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 		$result->addValue( null, $this->getModuleName(), array ( 'status' => "OK", 'count' => $count ) );
 
 		foreach ( $outcome->rows as $row ) {
-			
+
 			$rowid = $row->id;
 			// We assume here that ID is linked
 			$page = WikiPage::newFromId( $rowid );
@@ -58,7 +58,7 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 
 			$fields = array();
 			foreach ( $row["fields"] as $fieldkey => $fieldval ) {
-			
+
 			}
 
 			$result->setIndexedTagName( $row, 'result' );
@@ -67,7 +67,7 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 
 		$result->setIndexedTagName( $results, 'result' );
 		$result->addValue( $this->getModuleName(), "results", $results );
-	
+
 		return true;
 
 	}
@@ -93,6 +93,10 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 			'skip' => array(
 				ApiBase::PARAM_TYPE => 'integer',
 				ApiBase::PARAM_REQUIRED => false
+			),
+			'bookmark' => array(
+				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_REQUIRED => false
 			)
 		);
 	}
@@ -108,7 +112,8 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 			'db' => 'CouchDB database',
 			'q' => 'Actual text query',
 			'limit' => 'Limit of number of entries',
-			'skip' => 'Entries skipped'
+			'skip' => 'Entries skipped',
+			'bookmark' => 'Bookmark reference'
 		);
 	}
 
