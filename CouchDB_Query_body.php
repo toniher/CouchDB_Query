@@ -13,9 +13,10 @@ class CouchDB_Query {
 
 		// Get data from parser args and to data
 		// Defaults
-		
+
 		$attrs = array();
 		$attrs["limit"] =  "25";
+		$attrs["bookmark"] = "";
 		$attrs["header"] = "Page name";
 		$attrs["fields"] = "*";
 		$attrs["type"] = "";
@@ -30,14 +31,14 @@ class CouchDB_Query {
 		$startstr = "";
 		$endstr = "";
 
-		$attrs_ref = array( "limit", "header", "fields", "type", "index", "query", "class", "start", "end", "db", "text", "extra", "prefix", "prefixurl", "prefixcondurl" );
-		
+		$attrs_ref = array( "limit", "bookmark", "header", "fields", "type", "index", "query", "class", "start", "end", "db", "text", "extra", "prefix", "prefixurl", "prefixcondurl" );
+
 		foreach ( $args as $arg ) {
 			$arg_clean = trim( $frame->expand( $arg ) );
 			$arg_proc = explode( "=", $arg_clean, 2 );
-			
+
 			if ( count( $arg_proc ) == 2 ){
-			
+
 				if ( in_array( trim( $arg_proc[0] ), $attrs_ref ) ) {
 					$attrs[ trim( $arg_proc[0] ) ] = trim( $arg_proc[1] );
 				}
@@ -54,7 +55,7 @@ class CouchDB_Query {
 		$out = $parser->getOutput();
 		$out->addModules( 'ext.CouchDB_Query' );
 
-		$returnhtml = "<div class='couchdb-query-table' data-text='".$attrs["text"]."' data-extra='".$attrs["extra"]."' data-total=0 data-skip=0 data-class='".$attrs["class"]."' data-db='".$attrs["db"]."' ".$startstr.$endstr;
+		$returnhtml = "<div class='couchdb-query-table' data-text='".$attrs["text"]."' data-extra='".$attrs["extra"]."' data-total=0 data-skip=0 data-bookmark='".$attrs["bookmark"]."' data-class='".$attrs["class"]."' data-db='".$attrs["db"]."' ".$startstr.$endstr;
 		$returnhtml.= " data-limit='".$attrs["limit"]."' data-header='".$attrs["header"]."' data-fields='".$attrs["fields"]."' data-query='".$attrs["query"]."' data-index='".$attrs["index"]."' data-prefix='".$attrs["prefix"]."' data-prefixurl='".$attrs["prefixurl"]."' data-prefixcondurl='".$attrs["prefixcondurl"]."' data-type='".$attrs["type"]."'></div>";
 
 		return array( $returnhtml, 'noparse' => true, 'isHTML' => true );
@@ -86,9 +87,9 @@ class CouchDB_Query {
 		foreach ( $args as $arg ) {
 			$arg_clean = trim( $frame->expand( $arg ) );
 			$arg_proc = explode( "=", $arg_clean, 2 );
-			
+
 			if ( count( $arg_proc ) == 2 ){
-			
+
 				if ( in_array( trim( $arg_proc[0] ), $attrs_ref ) ) {
 					$attrs[ trim( $arg_proc[0] ) ] = trim( $arg_proc[1] );
 				}
@@ -103,4 +104,3 @@ class CouchDB_Query {
 	}
 
 }
-

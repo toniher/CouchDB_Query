@@ -5,5 +5,4 @@ Extension for performing CouchDB queries within a MediaWiki instance.
 * Refactor common functions
 * Simplify parameters
 * Document how this works
-
-
+* Migrate Javascript function to use PouchDB

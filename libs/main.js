@@ -28,6 +28,7 @@
 				if ( inputsave.length > 2 ) {
 					$(div).data('total', 0 );
 					$(div).data('skip', 0 );
+					$(div).data('bookmark', "" );
 					iterateTable();
 				}
 			}
@@ -81,6 +82,7 @@
 			var index = $(div).data('index');
 			var type = $(div).data('type');
 			var skip = $(div).data('skip');
+			var bookmark = $(div).data('bookmark');
 			var db = $(div).data('db');
 			var text = $(div).data('text');
 			var extra = $(div).data('extra');
@@ -116,6 +118,10 @@
 				}
 				if ( skip !== "" ) {
 					params["skip"] = skip;
+				}
+
+				if ( bookmark !== "" ) {
+					params["bookmark"] = bookmark;
 				}
 
 				if ( type.indexOf("lucene") > -1 ) {
