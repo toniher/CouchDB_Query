@@ -14,7 +14,7 @@ class CouchDB_Document {
 				if ( array_key_exists( "db", $params ) ) {
 
 					if ( ! empty( $params["db"] ) ) {
-	
+
 						$db = $params["db"];
 
 						// Let's force empty. If not explicitly put, retrieved from queries
@@ -22,9 +22,9 @@ class CouchDB_Document {
 						$protocol = "";
 						$portstr = "";
 						$host = "";
-					
+
 						if ( array_key_exists( $db, $GLOBALS['wgCouchDB_Query']["document"] ) ) {
-							
+
 							$couchdb_params = $GLOBALS['wgCouchDB_Query']["document"][$db];
 
 							if ( array_key_exists( "username", $couchdb_params ) && array_key_exists( "password", $couchdb_params ) ) {
@@ -43,17 +43,18 @@ class CouchDB_Document {
 							if ( array_key_exists( "host", $couchdb_params ) ) {
 								$host =  $couchdb_params["host"];
 							}
-						
+
 						}
 
 						$url = $auth.$host.$portstr."/".$db."/".$key;
-		
+
 						if ( ! empty( $protocol ) ) {
-							
+
 							$url = $protocol."://". $url;
 						}
-						
+
 						$url = str_replace( " ", "%20", $url );
+						$url = str_replace( "#", "%23", $url );
 
 						$json = file_get_contents( $url );
 
