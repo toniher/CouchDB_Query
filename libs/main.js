@@ -120,7 +120,10 @@
 
 				if ( limit !== "" && ! full ) {
 					params["limit"] = limit;
-				}
+				} else {
+					params["limit"] = 200; // TO HANDLE bookmark for avoid this limit
+        }
+				
 				if ( skip !== "" && ! full ) {
 					params["skip"] = skip;
 				}
@@ -233,8 +236,6 @@
 
 				if ( skip == "" ) {
 					skip = 0;
-				} else {
-					skip = skip + 1;
 				}
 
 				if ( limit == "" ) {
