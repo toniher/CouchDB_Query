@@ -118,10 +118,10 @@
 				params["db"] = db;
 				params["q"] = "";
 
-				if ( limit !== "" ) {
+				if ( limit !== "" && ! full ) {
 					params["limit"] = limit;
 				}
-				if ( skip !== "" ) {
+				if ( skip !== "" && ! full ) {
 					params["skip"] = skip;
 				}
 
@@ -164,6 +164,8 @@
 
 					var posting = $.get( mw.config.get( "wgScriptPath" ) + "/api.php", params );
 					posting.done(function( data ) {
+						localStorage.clear();
+
 						if ( data[type].status === "OK" ) {
 							if ( data[type].count ) {
 								$(div).data('total', data[type].count);

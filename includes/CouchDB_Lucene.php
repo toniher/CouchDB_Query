@@ -52,7 +52,7 @@ class CouchDB_Lucene {
 
 								}
 
-								$lucene_params = array( "q", "limit", "skip", "bookmark" );
+								$lucene_params = array( "q", "limit", "skip" );
 
 								$add_params = array();
 
