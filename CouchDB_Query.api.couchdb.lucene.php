@@ -9,20 +9,15 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 		// Below would be JSON
 
 		$count = 0;
-		$bookmark = "";
 
 		if ( property_exists ( $outcome, "total_rows" ) ) {
 			$count = $outcome->total_rows;
 		}
 
-		if ( property_exists ( $outcome, "bookmark" ) ) {
-			$bookmark = $outcome->bookmark;
-		}
-
 		$rows = array();
 
 		$result = $this->getResult();
-		$result->addValue( null, $this->getModuleName(), array ( 'status' => "OK", 'count' => $count, 'bookmark' => $bookmark ) );
+		$result->addValue( null, $this->getModuleName(), array ( 'status' => "OK", 'count' => $count ) );
 
 		foreach ( $outcome->rows as $row ) {
 
@@ -103,10 +98,6 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 			'skip' => array(
 				ApiBase::PARAM_TYPE => 'integer',
 				ApiBase::PARAM_REQUIRED => false
-			),
-			'bookmark' => array(
-				ApiBase::PARAM_TYPE => 'string',
-				ApiBase::PARAM_REQUIRED => false
 			)
 		);
 	}
@@ -122,8 +113,7 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 			'db' => 'CouchDB database',
 			'q' => 'Actual text query',
 			'limit' => 'Limit of number of entries',
-			'skip' => 'Entries skipped',
-			'bookmark' => 'Bookmark reference'
+			'skip' => 'Entries skipped'
 		);
 	}
 

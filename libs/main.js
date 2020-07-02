@@ -28,7 +28,6 @@
 				if ( inputsave.length > 2 ) {
 					$(div).data('total', 0 );
 					$(div).data('skip', 0 );
-					$(div).data('bookmark', "" );
 					iterateTable();
 				}
 			}
@@ -82,7 +81,6 @@
 			var index = $(div).data('index');
 			var type = $(div).data('type');
 			var skip = $(div).data('skip');
-			var bookmark = $(div).data('bookmark');
 			var db = $(div).data('db');
 			var text = $(div).data('text');
 			var extra = $(div).data('extra');
@@ -94,7 +92,7 @@
 
 			var full = false;
 
-			if ( $(div).data('full') == "true" ) {
+			if ( $(div).data('full') ) {
 				full = true;
 			}
 
@@ -125,10 +123,6 @@
 				}
 				if ( skip !== "" ) {
 					params["skip"] = skip;
-				}
-
-				if ( bookmark !== "" ) {
-					params["bookmark"] = bookmark;
 				}
 
 				if ( type.indexOf("lucene") > -1 ) {
@@ -174,10 +168,6 @@
 							if ( data[type].count ) {
 								$(div).data('total', data[type].count);
 
-								if ( data[type].bookmark ) {
-									$(div).data('bookmark', data[type].bookmark);
-								}
-
 								var prev = ""; var next = ""; var count = "";
 								$(div).find("table").remove();
 								$(div).find(".bar > span").remove();
@@ -186,14 +176,8 @@
 									count = "<span class='count'>" + data[type].count + "</span>";
 								}
 
-								if ( data[type].bookmark && data[type].bookmark != "" ) {
+								if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
 									next = "<span class='next'>Next</span>";
-								} else {
-
-									if ( ( ( data[type].count ) - parseInt( skip, 10 ) ) > parseInt( limit, 10 ) ) {
-										next = "<span class='next'>Next</span>";
-									}
-
 								}
 
 								if ( parseInt( skip, 10 ) > 0 ) {
@@ -239,16 +223,18 @@
 
 	function getResultsStuff( results, full, skip, limit ) {
 
-		if ( ! full ) {
-			return results;
-		} else {
+		if ( full ) {
+
 			if ( localStorage.results ) {
 				let jsonObj = JSON.parse( localStorage.results );
 				let results = [];
 
 				if ( skip == "" ) {
 					skip = 0;
+				} else {
+					skip = skip + 1;
 				}
+
 				if ( limit == "" ) {
 					limit = 25;
 				}
@@ -269,13 +255,12 @@
 					i++;
 				}
 
-				return results;
-
-
 			} else {
-				return null;
+				results = null;
 			}
 		}
+
+		return results;
 
 	}
 
