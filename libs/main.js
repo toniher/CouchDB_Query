@@ -123,7 +123,7 @@
 				} else {
 					params["limit"] = 200; // TO HANDLE bookmark for avoid this limit
         }
-				
+
 				if ( skip !== "" && ! full ) {
 					params["skip"] = skip;
 				}
@@ -228,11 +228,12 @@
 
 	function getResultsStuff( results, full, skip, limit ) {
 
+		let outcome = [];
+
 		if ( full ) {
 
 			if ( localStorage.results ) {
 				let jsonObj = JSON.parse( localStorage.results );
-				let results = [];
 
 				if ( skip == "" ) {
 					skip = 0;
@@ -251,19 +252,22 @@
 					}
 
 					if ( i >= skip ){
-						results.push( j );
+						outcome.push( j );
 						c++;
 					}
 
 					i++;
 				}
 
+
 			} else {
-				results = null;
+				outcome = null;
 			}
+		} else {
+			outcome = results;
 		}
 
-		return results;
+		return outcome;
 
 	}
 
