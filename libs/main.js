@@ -91,6 +91,13 @@
 			var prefixurl = processPrefix( $(div).data('prefixurl') );
 			var prefixcondurl = $(div).data('prefixcondurl');
 
+
+			var full = false;
+
+			if ( $(div).data('full') == "true" ) {
+				full = true;
+			}
+
 			// Stricty necessary
 			if ( type !== "" && index !== "" && db !== "" ) {
 
@@ -188,7 +195,7 @@
 									}
 
 								}
-								
+
 								if ( parseInt( skip, 10 ) > 0 ) {
 									prev = "<span class='prev'>Previous</span>";
 								}
@@ -196,11 +203,21 @@
 								$(div).find(".bar").first().append(count+prev+next);
 
 								if ( data[type].results.length > 0 ) {
-									var table = generateResultsTable( data[type].results, tableclass, header, fields, prefix, prefixurl, prefixcondurl );
-									$(div).append( table );
-									// generateSMWTable( $(div).children("table"), fields );
-									$(div).children("table").tablesorter(); //Let's make table sortable
 
+									if ( full ) {
+										if ( ! localStorage.results ) {
+											localStorage.results = JSON.stringify( data[type].results );
+										}
+									}
+
+									let stuffResults = getResultsStuff( data[type].results, full, skip, limit );
+
+									if ( stuffResults && stuffResults.length > 0 ) {
+										var table = generateResultsTable( stuffResults, tableclass, header, fields, prefix, prefixurl, prefixcondurl );
+										$(div).append( table );
+										// generateSMWTable( $(div).children("table"), fields );
+										$(div).children("table").tablesorter(); //Let's make table sortable
+									}
 								}
 							} else {
 								$(div).find("table").remove();
@@ -218,6 +235,48 @@
 				}
 			}
 		});
+	}
+
+	function getResultsStuff( results, full, skip, limit ) {
+
+		if ( ! full ) {
+			return results;
+		} else {
+			if ( localStorage.results ) {
+				let jsonObj = JSON.parse( localStorage.results );
+				let results = [];
+
+				if ( skip == "" ) {
+					skip = 0;
+				}
+				if ( limit == "" ) {
+					limit = 25;
+				}
+
+				let i = 0;
+				let c = 0;
+				for ( let j of jsonObj ) {
+
+					if ( c >= limit ) {
+						break;
+					}
+
+					if ( i >= skip ){
+						results.push( j );
+						c++;
+					}
+
+					i++;
+				}
+
+				return results;
+
+
+			} else {
+				return null;
+			}
+		}
+
 	}
 
 	function subsTextQuery( query, text ) {
