@@ -73,7 +73,9 @@ class CouchDB_Lucene {
 
 								$url = str_replace( " ", "%20", $url );
 
-								$outcome = self::retrieveRecursiveData( $outcome, $url );
+								$iter = 0;
+
+								$outcome = self::retrieveRecursiveData( $outcome, $url, $iter );
 							}
 						}
 					}
@@ -85,7 +87,13 @@ class CouchDB_Lucene {
 
 	}
 
-	private static function retrieveRecursiveData( $outcome, $url ) {
+	private static function retrieveRecursiveData( $outcome, $url, $iter ) {
+
+		# Max iterations
+		if ( $iter > 25 ) {
+			//exit;
+			return $outcome;
+		}
 
 		$json = file_get_contents( $url );
 		$obj = json_decode($json);
@@ -102,7 +110,9 @@ class CouchDB_Lucene {
 		}
 
 		if ( property_exists ( $obj, "bookmark" ) ) {
-			$outcome = self::retrieveRecursiveData( $outcome, $url );
+			$iter++;
+			//echo $iter;
+			$outcome = self::retrieveRecursiveData( $outcome, $url, $iter );
 		}
 
 		return $outcome;
