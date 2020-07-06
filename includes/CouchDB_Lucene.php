@@ -112,10 +112,26 @@ class CouchDB_Lucene {
 		if ( property_exists ( $obj, "bookmark" ) ) {
 			$iter++;
 			//echo $iter;
+			$bookmark = $obj->bookmark;
+
+			if ( ! empty( $bookmark ) ) {
+				$url = self::adaptURLBookmark( $url, $bookmark );
+			}
+
 			$outcome = self::retrieveRecursiveData( $outcome, $url, $iter );
 		}
 
 		return $outcome;
+
+	}
+
+	private static function adaptURLBookmark( $url, $bookmark ) {
+
+		$parts = explode( "&bookmark=", $url );
+
+		$newurl = $parts[0]."&bookmark=".$bookmark;
+
+		return $newurl;
 
 	}
 }
