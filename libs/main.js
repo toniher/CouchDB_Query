@@ -118,6 +118,10 @@
 				params["db"] = db;
 				params["q"] = "";
 
+				if ( full ) {
+					params["full"] = true;
+				}
+
 				if ( limit !== "" && ! full ) {
 					params["limit"] = limit;
 				} else {

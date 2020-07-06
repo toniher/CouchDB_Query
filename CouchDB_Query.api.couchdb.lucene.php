@@ -98,6 +98,10 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 			'skip' => array(
 				ApiBase::PARAM_TYPE => 'integer',
 				ApiBase::PARAM_REQUIRED => false
+			),
+			'full' => array(
+				ApiBase::PARAM_TYPE => 'boolean',
+				ApiBase::PARAM_REQUIRED => false
 			)
 		);
 	}

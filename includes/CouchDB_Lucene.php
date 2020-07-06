@@ -52,6 +52,13 @@ class CouchDB_Lucene {
 
 								}
 
+								$full = false;
+
+								if ( array_key_exists( "full", $params ) ) {
+									$full = $params["full"];
+								}
+
+
 								$lucene_params = array( "q", "limit", "skip" );
 
 								$add_params = array();
@@ -73,9 +80,14 @@ class CouchDB_Lucene {
 
 								$url = str_replace( " ", "%20", $url );
 
-								$iter = 0;
+								if ( $full ) {
+									$iter = 0;
+									$outcome = self::retrieveRecursiveData( $outcome, $url, $iter );
+								} else {
+									$json = file_get_contents( $url );
+									$outcome = json_decode($json);
+								}
 
-								$outcome = self::retrieveRecursiveData( $outcome, $url, $iter );
 							}
 						}
 					}
