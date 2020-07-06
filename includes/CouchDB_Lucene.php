@@ -105,7 +105,7 @@ class CouchDB_Lucene {
 
 			$outresults = $outcome->rows;
 			$objresults = $obj->rows;
-			$outcome->results = array_merge( $outresults, $objresults );
+			$outcome->rows = array_merge( $outresults, $objresults );
 
 		}
 
