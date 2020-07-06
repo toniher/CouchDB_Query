@@ -103,8 +103,8 @@ class CouchDB_Lucene {
 			$outcome = $obj;
 		} else {
 
-			$outresults = $outcome->results;
-			$objresults = $obj->results;
+			$outresults = $outcome->rows;
+			$objresults = $obj->rows;
 			$outcome->results = array_merge( $outresults, $objresults );
 
 		}
@@ -116,9 +116,10 @@ class CouchDB_Lucene {
 
 			if ( ! empty( $bookmark ) ) {
 				$url = self::adaptURLBookmark( $url, $bookmark );
+				$outcome = self::retrieveRecursiveData( $outcome, $url, $iter );
+
 			}
 
-			$outcome = self::retrieveRecursiveData( $outcome, $url, $iter );
 		}
 
 		return $outcome;
