@@ -23,7 +23,7 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 
 			$rowid = $row->id;
 			// We assume here that ID is linked
-			$page = WikiPage::newFromId( $rowid );
+			$page = \MediaWiki\MediaWikiServices::getInstance()->getWikiPageFactory()->newFromID( $rowid );
 
 			$newrow = array();
 
@@ -41,9 +41,9 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 				// Hack for strange cases :'(
 				$db = $params['db'];
 				$index = $params['index'];
-				global $wgCouchDB_Query;
+				$wgCouchDB_Query = $GLOBALS['wgCouchDB_Query'] ?? [];
 
-				if ( $wgCouchDB_Query["map"][$db][$index]["pagename"] ) {
+				if ( !empty( $wgCouchDB_Query["map"][$db][$index]["pagename"] ) ) {
 					$pagename = $GLOBALS['wgCouchDB_Query']["map"][$params["db"]][$params["index"]]["pagename"];
 
 					$newrow["pagename"] = $row->fields->$pagename;
@@ -106,23 +106,5 @@ class ApiCouchDB_Query_Lucene extends ApiBase {
 		);
 	}
 
-	public function getDescription() {
-		return array(
-			'API for querying CouchDB Lucene predefined system'
-		);
-	}
-	public function getParamDescription() {
-		return array(
-			'index' => 'Index used for the query',
-			'db' => 'CouchDB database',
-			'q' => 'Actual text query',
-			'limit' => 'Limit of number of entries',
-			'skip' => 'Entries skipped'
-		);
-	}
-
-	public function getVersion() {
-		return __CLASS__ . ': 1.1';
-	}
 
 }

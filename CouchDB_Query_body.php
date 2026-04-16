@@ -25,7 +25,7 @@ class CouchDB_Query {
 		$attrs["prefix"] = "";
 		$attrs["full"] = "";
 		$attrs["class"] = "wikitable sortable jquery-tablesorter";
-		$attrs["db"] = $GLOBALS["wgDBname"]; //Default DB
+		$attrs["db"] = \MediaWiki\MediaWikiServices::getInstance()->getMainConfig()->get( 'DBname' );
 		$attrs["default"] = "";
 
 		$startstr = "";
@@ -53,7 +53,7 @@ class CouchDB_Query {
 		}
 
 		$out = $parser->getOutput();
-		$out->addModules( 'ext.CouchDB_Query' );
+		$out->addModules( [ 'ext.CouchDB_Query' ] );
 
 		$returnhtml = "<div class='couchdb-query-table' data-full='".$attrs['full']."' data-text='".$attrs["text"]."' data-extra='".$attrs["extra"]."' data-total=0 data-skip=0 data-class='".$attrs["class"]."' data-db='".$attrs["db"]."' ".$startstr.$endstr;
 		$returnhtml.= " data-limit='".$attrs["limit"]."' data-header='".$attrs["header"]."' data-fields='".$attrs["fields"]."' data-query='".$attrs["query"]."' data-index='".$attrs["index"]."' data-prefix='".$attrs["prefix"]."' data-prefixurl='".$attrs["prefixurl"]."' data-prefixcondurl='".$attrs["prefixcondurl"]."' data-type='".$attrs["type"]."'></div>";
