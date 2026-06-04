@@ -132,7 +132,7 @@
 					params["skip"] = skip;
 				}
 
-				if ( type.indexOf("lucene") > -1 ) {
+				if ( type.indexOf("lucene") > -1 || type.indexOf("nouveau") > -1 ) {
 					params["q"] = subsTextQuery( query, text );
 
 					if ( extra ) {

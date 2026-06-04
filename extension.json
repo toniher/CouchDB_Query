@@ -12,10 +12,12 @@
 	"AutoloadClasses": {
 		"CouchDB_Query": "CouchDB_Query_body.php",
 		"CouchDB_Lucene": "includes/CouchDB_Lucene.php",
+		"CouchDB_Nouveau": "includes/CouchDB_Nouveau.php",
 		"CouchDB_Index": "includes/CouchDB_Index.php",
 		"CouchDB_Document": "includes/CouchDB_Document.php",
 		"ApiCouchDB_Query": "CouchDB_Query.api.couchdb.php",
 		"ApiCouchDB_Query_Lucene": "CouchDB_Query.api.couchdb.lucene.php",
+		"ApiCouchDB_Query_Nouveau": "CouchDB_Query.api.couchdb.nouveau.php",
 		"ApiCouchDB_Document": "CouchDB_Query.api.couchdb.document.php",
 		"CouchDB_QueryHooks": "includes/CouchDB_QueryHooks.php"
 	},
@@ -31,6 +33,7 @@
 	"APIModules": {
 		"couchdb-query": "ApiCouchDB_Query",
 		"couchdb-lucene-query": "ApiCouchDB_Query_Lucene",
+		"couchdb-nouveau-query": "ApiCouchDB_Query_Nouveau",
 		"couchdb-document": "ApiCouchDB_Document"
 	},
 	"ResourceModules": {

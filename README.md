@@ -3,7 +3,7 @@ Extension for performing CouchDB queries within a MediaWiki instance.
 ## Requirements
 
 - MediaWiki 1.35 or later
-- CouchDB instance (optionally with CouchDB-Lucene for full-text search)
+- CouchDB instance (optionally with CouchDB-Lucene or CouchDB Nouveau for full-text search)
 
 ## Installation
 
@@ -87,7 +87,26 @@ The extension exposes three API modules:
 |---|---|---|
 | `couchdb-query` | `api.php?action=couchdb-query` | Query a CouchDB view/index |
 | `couchdb-lucene-query` | `api.php?action=couchdb-lucene-query` | Full-text search via CouchDB-Lucene |
+| `couchdb-nouveau-query` | `api.php?action=couchdb-nouveau-query` | Full-text search via CouchDB Nouveau (3.4+) |
 | `couchdb-document` | `api.php?action=couchdb-document` | Retrieve a single CouchDB document |
+
+### Upgrading: CouchDB Nouveau support
+
+CouchDB Nouveau (the replacement for CouchDB-Lucene shipped from CouchDB 3.4 onwards) is now supported alongside the existing Lucene endpoint. No config-schema changes are needed; point `queries[$db][$index]` at the Nouveau path instead of the Lucene `_fti` path:
+
+```php
+// Lucene (legacy)
+$wgCouchDB_Query['queries']['mydb']['text'] = '/_fti/local/mydb/_design/luceneindex/by_text';
+
+// Nouveau (CouchDB 3.4+)
+$wgCouchDB_Query['queries']['mydb']['text'] = '/mydb/_design/mydesign/_nouveau/by_text';
+```
+
+Then hit `action=couchdb-nouveau-query` instead of `action=couchdb-lucene-query`. The response shape (`status`, `count`, `results[*].{id,score,pagename,fields}`) is normalised to match the Lucene module, so consumers do not need to change.
+
+Notes:
+- Nouveau does not support `skip`; pagination is bookmark-based. The current JS Next/Prev controls still use offset arithmetic and have not yet been adapted for Nouveau bookmarks.
+- Supported request params: `q`, `limit`, `sort`, `include_docs`, `full`.
 
 ### TODO
 
