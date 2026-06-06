@@ -1,0 +1,33 @@
+{
+	"name": "mediawiki/couchdb-query",
+	"type": "mediawiki-extension",
+	"description": "MediaWiki extension for performing CouchDB queries (map/reduce views, CouchDB-Lucene and CouchDB Nouveau full-text search) from within wiki pages.",
+	"keywords": [
+		"mediawiki",
+		"couchdb",
+		"lucene",
+		"nouveau",
+		"extension",
+		"parserhook"
+	],
+	"homepage": "https://github.com/toniher/CouchDB_Query",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Toniher",
+			"homepage": "https://www.mediawiki.org/wiki/User:Toniher",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/toniher/CouchDB_Query/issues",
+		"source": "https://github.com/toniher/CouchDB_Query"
+	},
+	"require": {
+		"php": ">=7.4",
+		"composer/installers": ">=1.0.1"
+	},
+	"extra": {
+		"installer-name": "CouchDB_Query"
+	}
+}

@@ -71,7 +71,7 @@ class CouchDB_Lucene {
 									}
 								}
 
-								$url = $auth.$host.$portstr.$urlquery."?".join( $add_params, "&" );
+								$url = $auth.$host.$portstr.$urlquery."?".implode( "&", $add_params );
 
 								if ( ! empty( $protocol ) ) {
 
