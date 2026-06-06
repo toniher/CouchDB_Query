@@ -39,7 +39,7 @@ class ApiCouchDB_Query extends ApiBase {
 			if ( $row->value->pagename ) {
 				$newrow["pagename"] = $row->value->pagename;
 			} else {
-				$page = WikiPage::newFromId( $rowid );
+				$page = \MediaWiki\MediaWikiServices::getInstance()->getWikiPageFactory()->newFromID( $rowid );
 				if ( $page ) {
 					$title = $page->getTitle();
 					$fullpagename = $title->getFullText();
@@ -132,28 +132,5 @@ class ApiCouchDB_Query extends ApiBase {
 		);
 	}
 
-	public function getDescription() {
-		return array(
-			'API for querying CouchDB Indexes predefined system'
-		);
-	}
-	public function getParamDescription() {
-		return array(
-			'index' => 'Index used for the query',
-			'db' => 'CouchDB database',
-			'key' => 'key to be searched',
-			'keys' => 'list of keys to be searched',
-			'startkey' => 'Starting key',
-			'endkey' => 'Ending key',
-			'fields' => 'Fields to show',
-			'limit' => 'Limit of number of entries',
-			'skip' => 'Entries skipped',
-			'include_docs' => 'Result docs included'
-		);
-	}
-
-	public function getVersion() {
-		return __CLASS__ . ': 1.1';
-	}
 
 }

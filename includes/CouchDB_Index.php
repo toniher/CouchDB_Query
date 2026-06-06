@@ -69,8 +69,8 @@ class CouchDB_Index {
 									$include = "&include_docs=true";
 								}
 
-								$url = $auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&reduce=false".$include;
-								$url_reduce = $auth.$host.$portstr.$urlquery."?".join( $add_params, "&" )."&group=true";
+								$url = $auth.$host.$portstr.$urlquery."?".implode( "&", $add_params )."&reduce=false".$include;
+								$url_reduce = $auth.$host.$portstr.$urlquery."?".implode( "&", $add_params )."&group=true";
 				
 								if ( ! empty( $protocol ) ) {
 									

@@ -48,20 +48,5 @@ class ApiCouchDB_Document extends ApiBase {
 		);
 	}
 
-	public function getDescription() {
-		return array(
-			'API for querying CouchDB documents'
-		);
-	}
-	public function getParamDescription() {
-		return array(
-			'db' => 'CouchDB database',
-			'key' => 'key ID to be retrieved'
-		);
-	}
-
-	public function getVersion() {
-		return __CLASS__ . ': 1.1';
-	}
 
 }

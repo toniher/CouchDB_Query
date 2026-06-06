@@ -1,0 +1,73 @@
+{
+	"name": "CouchDB_Query",
+	"version": "0.2.0",
+	"author": [ "Toniher" ],
+	"url": "https://www.mediawiki.org/wiki/User:Toniher",
+	"descriptionmsg": "CouchDB_Query-desc",
+	"license-name": "GPL-2.0-or-later",
+	"type": "parserhook",
+	"requires": {
+		"MediaWiki": ">= 1.35.0"
+	},
+	"AutoloadClasses": {
+		"CouchDB_Query": "CouchDB_Query_body.php",
+		"CouchDB_Lucene": "includes/CouchDB_Lucene.php",
+		"CouchDB_Nouveau": "includes/CouchDB_Nouveau.php",
+		"CouchDB_Index": "includes/CouchDB_Index.php",
+		"CouchDB_Document": "includes/CouchDB_Document.php",
+		"ApiCouchDB_Query": "CouchDB_Query.api.couchdb.php",
+		"ApiCouchDB_Query_Lucene": "CouchDB_Query.api.couchdb.lucene.php",
+		"ApiCouchDB_Query_Nouveau": "CouchDB_Query.api.couchdb.nouveau.php",
+		"ApiCouchDB_Document": "CouchDB_Query.api.couchdb.document.php",
+		"CouchDB_QueryHooks": "includes/CouchDB_QueryHooks.php"
+	},
+	"MessagesDirs": {
+		"CouchDB_Query": [ "i18n" ]
+	},
+	"ExtensionMessagesFiles": {
+		"CouchDB_QueryMagic": "CouchDB_Query.i18n.magic.php"
+	},
+	"Hooks": {
+		"ParserFirstCallInit": "CouchDB_QueryHooks::onParserFirstCallInit"
+	},
+	"APIModules": {
+		"couchdb-query": "ApiCouchDB_Query",
+		"couchdb-lucene-query": "ApiCouchDB_Query_Lucene",
+		"couchdb-nouveau-query": "ApiCouchDB_Query_Nouveau",
+		"couchdb-document": "ApiCouchDB_Document"
+	},
+	"ResourceModules": {
+		"ext.CouchDB_Query": {
+			"scripts": [ "libs/main.js" ],
+			"styles": [ "styles/main.less" ],
+			"dependencies": [ "jquery.tablesorter" ]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "CouchDB_Query"
+	},
+	"config": {
+		"CouchDB_Query": {
+			"value": {
+				"params": {
+					"db": {
+						"username": "username",
+						"password": "password",
+						"host": "host",
+						"protocol": "http",
+						"port": 80,
+						"db": ""
+					}
+				},
+				"queries": {
+					"db": {
+						"text": "/_fti/local/db/_design/luceneindex/by_text",
+						"coords": "/db/_design/search/_view/coords"
+					}
+				}
+			}
+		}
+	},
+	"manifest_version": 2
+}
