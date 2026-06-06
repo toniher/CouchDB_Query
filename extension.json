@@ -1,6 +1,6 @@
 {
 	"name": "CouchDB_Query",
-	"version": "0.1.3",
+	"version": "0.2.0",
 	"author": [ "Toniher" ],
 	"url": "https://www.mediawiki.org/wiki/User:Toniher",
 	"descriptionmsg": "CouchDB_Query-desc",
